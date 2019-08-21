@@ -1,0 +1,2450 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Transformer\_model\_with\_Self\_Attention\_Mechanism}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{build-transformer-models-for-bidirectional-translation-between-english-and-french}{%
+\section{Build Transformer Models for Bidirectional Translation Between
+English and
+French}\label{build-transformer-models-for-bidirectional-translation-between-english-and-french}}
+
+\hypertarget{liu-yan}{%
+\subsection{Liu Yan}\label{liu-yan}}
+
+    \begin{quote}
+The code below is adapted from the great breakdown by Alexander
+``Sasha'' Rush ({[}@harvardnlp{]}(https://twitter.com/harvardnlp)). It
+is a walkthrough for the paper {[}``Attention is All You Need''{]}
+(https://arxiv.org/abs/1706.03762). The original notebook is no longer
+working due to compatibility issues and a few changes have been made to
+make it work and cater to the final project's needs.
+\end{quote}
+
+    \hypertarget{preparation}{%
+\section{Preparation}\label{preparation}}
+
+    \hypertarget{updated-code-install-compatible-packages}{%
+\subsubsection{Updated Code: Install Compatible
+Packages}\label{updated-code-install-compatible-packages}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} For PyTorch versions before 0.4.0, please use pip install torchtext==0.2.3.}
+        \PY{o}{!}pip install \PYZhy{}q \PY{n+nv}{torchtext}\PY{o}{=}\PY{o}{=}\PY{l+m}{0}.2.3
+        \PY{o}{!}pip install \PYZhy{}q \PY{n+nv}{fastai}\PY{o}{=}\PY{o}{=}\PY{l+m}{0}.7.0
+        \PY{o}{!}pip install \PY{n+nv}{torchvision}\PY{o}{=}\PY{o}{=}\PY{l+m}{0}.1.9
+        \PY{o}{!}pip install http://download.pytorch.org/whl/cu80/torch\PYZhy{}0.3.0.post4\PYZhy{}cp36\PYZhy{}cp36m\PYZhy{}linux\PYZus{}x86\PYZus{}64.whl 
+        \PY{c+c1}{\PYZsh{}!pip install numpy matplotlib spacy torchtext }
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Requirement already satisfied: torchvision==0.1.9 in /usr/local/lib/python3.6/dist-packages (0.1.9)
+Requirement already satisfied: numpy in /usr/local/lib/python3.6/dist-packages (from torchvision==0.1.9) (1.16.4)
+Requirement already satisfied: six in /usr/local/lib/python3.6/dist-packages (from torchvision==0.1.9) (1.12.0)
+Requirement already satisfied: torch in /usr/local/lib/python3.6/dist-packages (from torchvision==0.1.9) (0.3.0.post4)
+Requirement already satisfied: pillow in /usr/local/lib/python3.6/dist-packages (from torchvision==0.1.9) (4.3.0)
+Requirement already satisfied: pyyaml in /usr/local/lib/python3.6/dist-packages (from torch->torchvision==0.1.9) (3.13)
+Requirement already satisfied: olefile in /usr/local/lib/python3.6/dist-packages (from pillow->torchvision==0.1.9) (0.46)
+Requirement already satisfied: torch==0.3.0.post4 from http://download.pytorch.org/whl/cu80/torch-0.3.0.post4-cp36-cp36m-linux\_x86\_64.whl in /usr/local/lib/python3.6/dist-packages (0.3.0.post4)
+Requirement already satisfied: numpy in /usr/local/lib/python3.6/dist-packages (from torch==0.3.0.post4) (1.16.4)
+Requirement already satisfied: pyyaml in /usr/local/lib/python3.6/dist-packages (from torch==0.3.0.post4) (3.13)
+
+    \end{Verbatim}
+
+    \hypertarget{import-packages}{%
+\subsubsection{Import Packages}\label{import-packages}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{c+c1}{\PYZsh{} Standard PyTorch imports}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{torch}
+        \PY{k+kn}{import} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{nn} \PY{k}{as} \PY{n+nn}{nn}
+        \PY{k+kn}{import} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{nn}\PY{n+nn}{.}\PY{n+nn}{functional} \PY{k}{as} \PY{n+nn}{F}
+        \PY{k+kn}{import} \PY{n+nn}{math}\PY{o}{,} \PY{n+nn}{copy}
+        \PY{k+kn}{from} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{autograd} \PY{k}{import} \PY{n}{Variable}
+        
+        \PY{c+c1}{\PYZsh{} For plots}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\end{Verbatim}
+
+
+    \hypertarget{model-architecture}{%
+\section{Model Architecture}\label{model-architecture}}
+
+    The Transformer follows this overall architecture using stacked
+self-attention and point-wise, fully connected layers for both the
+encoder and decoder.
+
+    \hypertarget{updated-code-encoder-and-decoder-stacks}{%
+\subsection{Updated Code: Encoder and Decoder
+Stacks}\label{updated-code-encoder-and-decoder-stacks}}
+
+\hypertarget{add-two-methods-encode-and-decode-to-prevent-error}{%
+\paragraph{Add two methods encode and decode to prevent
+error}\label{add-two-methods-encode-and-decode-to-prevent-error}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{k}{class} \PY{n+nc}{EncoderDecoder}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{Module}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    A standard Encoder\PYZhy{}Decoder architecture. Base model for this and many }
+        \PY{l+s+sd}{    other models.}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{encoder}\PY{p}{,} \PY{n}{decoder}\PY{p}{,} \PY{n}{src\PYZus{}embed}\PY{p}{,} \PY{n}{tgt\PYZus{}embed}\PY{p}{,} \PY{n}{generator}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{super}\PY{p}{(}\PY{n}{EncoderDecoder}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{encoder} \PY{o}{=} \PY{n}{encoder}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{decoder} \PY{o}{=} \PY{n}{decoder}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{src\PYZus{}embed} \PY{o}{=} \PY{n}{src\PYZus{}embed}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{tgt\PYZus{}embed} \PY{o}{=} \PY{n}{tgt\PYZus{}embed}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{generator} \PY{o}{=} \PY{n}{generator}
+                
+            \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{src}\PY{p}{,} \PY{n}{tgt}\PY{p}{,} \PY{n}{src\PYZus{}mask}\PY{p}{,} \PY{n}{tgt\PYZus{}mask}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Take in and process masked src and target sequences.}\PY{l+s+s2}{\PYZdq{}}
+                \PY{n}{memory} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{encoder}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{src\PYZus{}embed}\PY{p}{(}\PY{n}{src}\PY{p}{)}\PY{p}{,} \PY{n}{src\PYZus{}mask}\PY{p}{)}
+                \PY{n}{output} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{decoder}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{tgt\PYZus{}embed}\PY{p}{(}\PY{n}{tgt}\PY{p}{)}\PY{p}{,} \PY{n}{memory}\PY{p}{,} \PY{n}{src\PYZus{}mask}\PY{p}{,} \PY{n}{tgt\PYZus{}mask}\PY{p}{)}
+                \PY{k}{return} \PY{n}{output}
+              
+            \PY{k}{def} \PY{n+nf}{encode}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{src}\PY{p}{,} \PY{n}{src\PYZus{}mask}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{encoder}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{src\PYZus{}embed}\PY{p}{(}\PY{n}{src}\PY{p}{)}\PY{p}{,} \PY{n}{src\PYZus{}mask}\PY{p}{)}
+        
+            \PY{k}{def} \PY{n+nf}{decode}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{memory}\PY{p}{,} \PY{n}{src\PYZus{}mask}\PY{p}{,} \PY{n}{tgt}\PY{p}{,} \PY{n}{tgt\PYZus{}mask}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{decoder}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{tgt\PYZus{}embed}\PY{p}{(}\PY{n}{tgt}\PY{p}{)}\PY{p}{,} \PY{n}{memory}\PY{p}{,} \PY{n}{src\PYZus{}mask}\PY{p}{,} \PY{n}{tgt\PYZus{}mask}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{encoder}{%
+\subsubsection{Encoder:}\label{encoder}}
+
+The encoder is composed of a stack of \(N=6\) identical layers.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{k}{def} \PY{n+nf}{clones}\PY{p}{(}\PY{n}{module}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Produce N identical layers.}\PY{l+s+s2}{\PYZdq{}}
+            \PY{k}{return} \PY{n}{nn}\PY{o}{.}\PY{n}{ModuleList}\PY{p}{(}\PY{p}{[}\PY{n}{copy}\PY{o}{.}\PY{n}{deepcopy}\PY{p}{(}\PY{n}{module}\PY{p}{)} \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{k}{class} \PY{n+nc}{Encoder}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{Module}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Core encoder is a stack of N layers}\PY{l+s+s2}{\PYZdq{}}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{layer}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{super}\PY{p}{(}\PY{n}{Encoder}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{layers} \PY{o}{=} \PY{n}{clones}\PY{p}{(}\PY{n}{layer}\PY{p}{,} \PY{n}{N}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{norm} \PY{o}{=} \PY{n}{LayerNorm}\PY{p}{(}\PY{n}{layer}\PY{o}{.}\PY{n}{size}\PY{p}{)}
+                
+            \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{mask}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pass the input (and mask) through each layer in turn.}\PY{l+s+s2}{\PYZdq{}}
+                \PY{k}{for} \PY{n}{layer} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{layers}\PY{p}{:}
+                    \PY{n}{x} \PY{o}{=} \PY{n}{layer}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{mask}\PY{p}{)}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+
+    We employ a residual connection \href{he2016deep}{(cite)} around each of
+the two sub-layers, followed by layer normalization
+\href{layernorm2016}{(cite)}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{k}{class} \PY{n+nc}{LayerNorm}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{Module}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Construct a layernorm module (See citation for details).}\PY{l+s+s2}{\PYZdq{}}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{features}\PY{p}{,} \PY{n}{eps}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}6}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{super}\PY{p}{(}\PY{n}{LayerNorm}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{a\PYZus{}2} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Parameter}\PY{p}{(}\PY{n}{torch}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{features}\PY{p}{)}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{b\PYZus{}2} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Parameter}\PY{p}{(}\PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{features}\PY{p}{)}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{eps} \PY{o}{=} \PY{n}{eps}
+        
+            \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+                \PY{n}{mean} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{keepdim}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+                \PY{n}{std} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{keepdim}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{a\PYZus{}2} \PY{o}{*} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZhy{}} \PY{n}{mean}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{std} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{eps}\PY{p}{)} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{b\PYZus{}2}
+\end{Verbatim}
+
+
+    That is, the output of each sub-layer is
+\(\mathrm{LayerNorm}(x + \mathrm{Sublayer}(x))\), where
+\(\mathrm{Sublayer}(x)\) is the function implemented by the sub-layer
+itself. We apply dropout \href{srivastava2014dropout}{(cite)} to the
+output of each sub-layer, before it is added to the sub-layer input and
+normalized.
+
+To facilitate these residual connections, all sub-layers in the model,
+as well as the embedding layers, produce outputs of dimension
+\(d_{\text{model}}=512\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{k}{class} \PY{n+nc}{SublayerConnection}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{Module}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    A residual connection followed by a layer norm.}
+        \PY{l+s+sd}{    Note for code simplicity we apply the norm first as opposed to last.}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{size}\PY{p}{,} \PY{n}{dropout}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{super}\PY{p}{(}\PY{n}{SublayerConnection}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{norm} \PY{o}{=} \PY{n}{LayerNorm}\PY{p}{(}\PY{n}{size}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dropout} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Dropout}\PY{p}{(}\PY{n}{dropout}\PY{p}{)}
+        
+            \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{sublayer}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Apply residual connection to any sublayer function that maintains the same size.}\PY{l+s+s2}{\PYZdq{}}
+                \PY{k}{return} \PY{n}{x} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dropout}\PY{p}{(}\PY{n}{sublayer}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    Each layer has two sub-layers. The first is a multi-head self-attention
+mechanism, and the second is a simple, position-wise fully connected
+feed-forward network.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{k}{class} \PY{n+nc}{EncoderLayer}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{Module}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Encoder is made up of two sublayers, self\PYZhy{}attn and feed forward (defined below)}\PY{l+s+s2}{\PYZdq{}}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{size}\PY{p}{,} \PY{n}{self\PYZus{}attn}\PY{p}{,} \PY{n}{feed\PYZus{}forward}\PY{p}{,} \PY{n}{dropout}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{super}\PY{p}{(}\PY{n}{EncoderLayer}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{self\PYZus{}attn} \PY{o}{=} \PY{n}{self\PYZus{}attn}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{feed\PYZus{}forward} \PY{o}{=} \PY{n}{feed\PYZus{}forward}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{sublayer} \PY{o}{=} \PY{n}{clones}\PY{p}{(}\PY{n}{SublayerConnection}\PY{p}{(}\PY{n}{size}\PY{p}{,} \PY{n}{dropout}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{size} \PY{o}{=} \PY{n}{size}
+        
+            \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{mask}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Follow Figure 1 (left) for connections.}\PY{l+s+s2}{\PYZdq{}}
+                \PY{n}{x} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{sublayer}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{self\PYZus{}attn}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{mask}\PY{p}{)}\PY{p}{)}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{sublayer}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{feed\PYZus{}forward}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{decoder}{%
+\subsubsection{Decoder:}\label{decoder}}
+
+The decoder is also composed of a stack of \(N=6\) identical layers.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{k}{class} \PY{n+nc}{Decoder}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{Module}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Generic N layer decoder with masking.}\PY{l+s+s2}{\PYZdq{}}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{layer}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{super}\PY{p}{(}\PY{n}{Decoder}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{layers} \PY{o}{=} \PY{n}{clones}\PY{p}{(}\PY{n}{layer}\PY{p}{,} \PY{n}{N}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{norm} \PY{o}{=} \PY{n}{LayerNorm}\PY{p}{(}\PY{n}{layer}\PY{o}{.}\PY{n}{size}\PY{p}{)}
+                
+            \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{memory}\PY{p}{,} \PY{n}{src\PYZus{}mask}\PY{p}{,} \PY{n}{tgt\PYZus{}mask}\PY{p}{)}\PY{p}{:}
+                \PY{k}{for} \PY{n}{layer} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{layers}\PY{p}{:}
+                    \PY{n}{x} \PY{o}{=} \PY{n}{layer}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{memory}\PY{p}{,} \PY{n}{src\PYZus{}mask}\PY{p}{,} \PY{n}{tgt\PYZus{}mask}\PY{p}{)}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+
+    In addition to the two sub-layers in each encoder layer, the decoder
+inserts a third sub-layer, which performs multi-head attention over the
+output of the encoder stack. Similar to the encoder, we employ residual
+connections around each of the sub-layers, followed by layer
+normalization.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{k}{class} \PY{n+nc}{DecoderLayer}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{Module}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Decoder is made up of three sublayers, self\PYZhy{}attn, src\PYZhy{}attn, and feed forward (defined below)}\PY{l+s+s2}{\PYZdq{}}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{size}\PY{p}{,} \PY{n}{self\PYZus{}attn}\PY{p}{,} \PY{n}{src\PYZus{}attn}\PY{p}{,} \PY{n}{feed\PYZus{}forward}\PY{p}{,} \PY{n}{dropout}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{super}\PY{p}{(}\PY{n}{DecoderLayer}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{size} \PY{o}{=} \PY{n}{size}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{self\PYZus{}attn} \PY{o}{=} \PY{n}{self\PYZus{}attn}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{src\PYZus{}attn} \PY{o}{=} \PY{n}{src\PYZus{}attn}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{feed\PYZus{}forward} \PY{o}{=} \PY{n}{feed\PYZus{}forward}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{sublayer} \PY{o}{=} \PY{n}{clones}\PY{p}{(}\PY{n}{SublayerConnection}\PY{p}{(}\PY{n}{size}\PY{p}{,} \PY{n}{dropout}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+         
+            \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{memory}\PY{p}{,} \PY{n}{src\PYZus{}mask}\PY{p}{,} \PY{n}{tgt\PYZus{}mask}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Follow Figure 1 (right) for connections.}\PY{l+s+s2}{\PYZdq{}}
+                \PY{n}{m} \PY{o}{=} \PY{n}{memory}
+                \PY{n}{x} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{sublayer}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{self\PYZus{}attn}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{tgt\PYZus{}mask}\PY{p}{)}\PY{p}{)}
+                \PY{n}{x} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{sublayer}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{src\PYZus{}attn}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{m}\PY{p}{,} \PY{n}{m}\PY{p}{,} \PY{n}{src\PYZus{}mask}\PY{p}{)}\PY{p}{)}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{sublayer}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{feed\PYZus{}forward}\PY{p}{)}
+\end{Verbatim}
+
+
+    We also modify the self-attention sub-layer in the decoder stack to
+prevent positions from attending to subsequent positions. This masking,
+combined with fact that the output embeddings are offset by one
+position, ensures that the predictions for position \(i\) can depend
+only on the known outputs at positions less than \(i\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{k}{def} \PY{n+nf}{subsequent\PYZus{}mask}\PY{p}{(}\PY{n}{size}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mask out subsequent positions.}\PY{l+s+s2}{\PYZdq{}}
+            \PY{n}{attn\PYZus{}shape} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{size}\PY{p}{,} \PY{n}{size}\PY{p}{)}
+            \PY{n}{subsequent\PYZus{}mask} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{triu}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{attn\PYZus{}shape}\PY{p}{)}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uint8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{k}{return} \PY{n}{torch}\PY{o}{.}\PY{n}{from\PYZus{}numpy}\PY{p}{(}\PY{n}{subsequent\PYZus{}mask}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} The attention mask shows the position each tgt word (row) is allowed to look at (column).}
+         \PY{c+c1}{\PYZsh{} Words are blocked for attending to future words during training. }
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{subsequent\PYZus{}mask}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} <matplotlib.image.AxesImage at 0x7fc575e95208>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{attention}{%
+\subsubsection{Attention:}\label{attention}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{k}{def} \PY{n+nf}{attention}\PY{p}{(}\PY{n}{query}\PY{p}{,} \PY{n}{key}\PY{p}{,} \PY{n}{value}\PY{p}{,} \PY{n}{mask}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{dropout}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Compute }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{Scaled Dot Product Attention}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}}
+            \PY{n}{d\PYZus{}k} \PY{o}{=} \PY{n}{query}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{scores} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{query}\PY{p}{,} \PY{n}{key}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)} \PYZbs{}
+                     \PY{o}{/} \PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{d\PYZus{}k}\PY{p}{)}
+            \PY{k}{if} \PY{n}{mask} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                \PY{n}{scores} \PY{o}{=} \PY{n}{scores}\PY{o}{.}\PY{n}{masked\PYZus{}fill}\PY{p}{(}\PY{n}{mask} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{1e9}\PY{p}{)}
+            \PY{n}{p\PYZus{}attn} \PY{o}{=} \PY{n}{F}\PY{o}{.}\PY{n}{softmax}\PY{p}{(}\PY{n}{scores}\PY{p}{,} \PY{n}{dim} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} (Dropout described below)}
+            \PY{n}{p\PYZus{}attn} \PY{o}{=} \PY{n}{F}\PY{o}{.}\PY{n}{dropout}\PY{p}{(}\PY{n}{p\PYZus{}attn}\PY{p}{,} \PY{n}{p}\PY{o}{=}\PY{n}{dropout}\PY{p}{)}
+            \PY{k}{return} \PY{n}{torch}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{p\PYZus{}attn}\PY{p}{,} \PY{n}{value}\PY{p}{)}\PY{p}{,} \PY{n}{p\PYZus{}attn}
+\end{Verbatim}
+
+
+    \hypertarget{multi-head-attention}{%
+\subsubsection{Multi-Head Attention}\label{multi-head-attention}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{k}{class} \PY{n+nc}{MultiHeadedAttention}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{Module}\PY{p}{)}\PY{p}{:}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{d\PYZus{}model}\PY{p}{,} \PY{n}{dropout}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Take in model size and number of heads.}\PY{l+s+s2}{\PYZdq{}}
+                \PY{n+nb}{super}\PY{p}{(}\PY{n}{MultiHeadedAttention}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+                \PY{k}{assert} \PY{n}{d\PYZus{}model} \PY{o}{\PYZpc{}} \PY{n}{h} \PY{o}{==} \PY{l+m+mi}{0}
+                \PY{c+c1}{\PYZsh{} We assume d\PYZus{}v always equals d\PYZus{}k}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{d\PYZus{}k} \PY{o}{=} \PY{n}{d\PYZus{}model} \PY{o}{/}\PY{o}{/} \PY{n}{h}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{h} \PY{o}{=} \PY{n}{h}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{p} \PY{o}{=} \PY{n}{dropout}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{linears} \PY{o}{=} \PY{n}{clones}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{Linear}\PY{p}{(}\PY{n}{d\PYZus{}model}\PY{p}{,} \PY{n}{d\PYZus{}model}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{attn} \PY{o}{=} \PY{k+kc}{None}
+                
+            \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{query}\PY{p}{,} \PY{n}{key}\PY{p}{,} \PY{n}{value}\PY{p}{,} \PY{n}{mask}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Implements Figure 2}\PY{l+s+s2}{\PYZdq{}}
+                \PY{k}{if} \PY{n}{mask} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                    \PY{c+c1}{\PYZsh{} Same mask applied to all h heads.}
+                    \PY{n}{mask} \PY{o}{=} \PY{n}{mask}\PY{o}{.}\PY{n}{unsqueeze}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+                \PY{n}{nbatches} \PY{o}{=} \PY{n}{query}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{} 1) Do all the linear projections in batch from d\PYZus{}model =\PYZgt{} h x d\PYZus{}k }
+                \PY{n}{query}\PY{p}{,} \PY{n}{key}\PY{p}{,} \PY{n}{value} \PY{o}{=} \PY{p}{[}\PY{n}{l}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{.}\PY{n}{view}\PY{p}{(}\PY{n}{nbatches}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{h}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{d\PYZus{}k}\PY{p}{)}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+                                     \PY{k}{for} \PY{n}{l}\PY{p}{,} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{linears}\PY{p}{,} \PY{p}{(}\PY{n}{query}\PY{p}{,} \PY{n}{key}\PY{p}{,} \PY{n}{value}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+                
+                \PY{c+c1}{\PYZsh{} 2) Apply attention on all the projected vectors in batch. }
+                \PY{n}{x}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{attn} \PY{o}{=} \PY{n}{attention}\PY{p}{(}\PY{n}{query}\PY{p}{,} \PY{n}{key}\PY{p}{,} \PY{n}{value}\PY{p}{,} \PY{n}{mask}\PY{o}{=}\PY{n}{mask}\PY{p}{,} \PY{n}{dropout}\PY{o}{=}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{p}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{} 3) \PYZdq{}Concat\PYZdq{} using a view and apply a final linear. }
+                \PY{n}{x} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{o}{.}\PY{n}{contiguous}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{view}\PY{p}{(}\PY{n}{nbatches}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{h} \PY{o}{*} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{d\PYZus{}k}\PY{p}{)}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{linears}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{position-wise-feed-forward-networks}{%
+\subsection{Position-wise Feed-Forward
+Networks}\label{position-wise-feed-forward-networks}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{k}{class} \PY{n+nc}{PositionwiseFeedForward}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{Module}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Implements FFN equation.}\PY{l+s+s2}{\PYZdq{}}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{d\PYZus{}model}\PY{p}{,} \PY{n}{d\PYZus{}ff}\PY{p}{,} \PY{n}{dropout}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{super}\PY{p}{(}\PY{n}{PositionwiseFeedForward}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{} Torch linears have a `b` by default. }
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}1} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Linear}\PY{p}{(}\PY{n}{d\PYZus{}model}\PY{p}{,} \PY{n}{d\PYZus{}ff}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}2} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Linear}\PY{p}{(}\PY{n}{d\PYZus{}ff}\PY{p}{,} \PY{n}{d\PYZus{}model}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dropout} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Dropout}\PY{p}{(}\PY{n}{dropout}\PY{p}{)}
+        
+            \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}2}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dropout}\PY{p}{(}\PY{n}{F}\PY{o}{.}\PY{n}{relu}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{w\PYZus{}1}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{embeddings-and-softmax}{%
+\subsection{Embeddings and Softmax}\label{embeddings-and-softmax}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{k}{class} \PY{n+nc}{Embeddings}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{Module}\PY{p}{)}\PY{p}{:}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{d\PYZus{}model}\PY{p}{,} \PY{n}{vocab}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{super}\PY{p}{(}\PY{n}{Embeddings}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{lut} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Embedding}\PY{p}{(}\PY{n}{vocab}\PY{p}{,} \PY{n}{d\PYZus{}model}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{d\PYZus{}model} \PY{o}{=} \PY{n}{d\PYZus{}model}
+        
+            \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{lut}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{*} \PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{d\PYZus{}model}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{positional-encoding}{%
+\subsection{Positional Encoding}\label{positional-encoding}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{k}{class} \PY{n+nc}{PositionalEncoding}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{Module}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Implement the PE function.}\PY{l+s+s2}{\PYZdq{}}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{d\PYZus{}model}\PY{p}{,} \PY{n}{dropout}\PY{p}{,} \PY{n}{max\PYZus{}len}\PY{o}{=}\PY{l+m+mi}{5000}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{super}\PY{p}{(}\PY{n}{PositionalEncoding}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dropout} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Dropout}\PY{p}{(}\PY{n}{p}\PY{o}{=}\PY{n}{dropout}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{} Compute the positional encodings once in log space.}
+                \PY{n}{pe} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{max\PYZus{}len}\PY{p}{,} \PY{n}{d\PYZus{}model}\PY{p}{)}
+                \PY{n}{position} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{max\PYZus{}len}\PY{p}{)}\PY{o}{.}\PY{n}{unsqueeze}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+                \PY{n}{div\PYZus{}term} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{torch}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{d\PYZus{}model}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)} \PY{o}{*}
+                                     \PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mf}{10000.0}\PY{p}{)} \PY{o}{/} \PY{n}{d\PYZus{}model}\PY{p}{)}\PY{p}{)}
+        
+          
+                \PY{n}{pe}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{position} \PY{o}{*} \PY{n}{div\PYZus{}term}\PY{p}{)}
+                \PY{n}{pe}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{position} \PY{o}{*} \PY{n}{div\PYZus{}term}\PY{p}{)}
+                \PY{n}{pe} \PY{o}{=} \PY{n}{pe}\PY{o}{.}\PY{n}{unsqueeze}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{register\PYZus{}buffer}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{pe}\PY{p}{)}
+                
+            \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+                \PY{n}{x} \PY{o}{=} \PY{n}{x} \PY{o}{+} \PY{n}{Variable}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{pe}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{n}{x}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{n}{requires\PYZus{}grad}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{dropout}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} The positional encoding will add in a sine wave based on position.}
+         \PY{c+c1}{\PYZsh{} The frequency and offset of the wave is different for each dimension.}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{pe} \PY{o}{=} \PY{n}{PositionalEncoding}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{n}{pe}\PY{o}{.}\PY{n}{forward}\PY{p}{(}\PY{n}{Variable}\PY{p}{(}\PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{:}\PY{l+m+mi}{8}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{numpy}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dim }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{k}{p} for p in [4,5,6,7]])
+         \PY{k+kc}{None}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We also experimented with using learned positional embeddings
+\href{JonasFaceNet2017}{(cite)} instead, and found that the two versions
+produced nearly identical results. We chose the sinusoidal version
+because it may allow the model to extrapolate to sequence lengths longer
+than the ones encountered during training.
+
+    \hypertarget{generation}{%
+\subsection{Generation}\label{generation}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{k}{class} \PY{n+nc}{Generator}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{Module}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Standard generation step. (Not described in the paper.)}\PY{l+s+s2}{\PYZdq{}}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{d\PYZus{}model}\PY{p}{,} \PY{n}{vocab}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{super}\PY{p}{(}\PY{n}{Generator}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{proj} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Linear}\PY{p}{(}\PY{n}{d\PYZus{}model}\PY{p}{,} \PY{n}{vocab}\PY{p}{)}
+        
+            \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{n}{F}\PY{o}{.}\PY{n}{log\PYZus{}softmax}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{proj}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{n}{dim}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{full-model}{%
+\subsection{Full Model}\label{full-model}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{k}{def} \PY{n+nf}{make\PYZus{}model}\PY{p}{(}\PY{n}{src\PYZus{}vocab}\PY{p}{,} \PY{n}{tgt\PYZus{}vocab}\PY{p}{,} \PY{n}{N}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{,} \PY{n}{d\PYZus{}model}\PY{o}{=}\PY{l+m+mi}{512}\PY{p}{,} \PY{n}{d\PYZus{}ff}\PY{o}{=}\PY{l+m+mi}{2048}\PY{p}{,} \PY{n}{h}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{,} \PY{n}{dropout}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Construct a model object based on hyperparameters.}\PY{l+s+s2}{\PYZdq{}}
+            \PY{n}{c} \PY{o}{=} \PY{n}{copy}\PY{o}{.}\PY{n}{deepcopy}
+            \PY{n}{attn} \PY{o}{=} \PY{n}{MultiHeadedAttention}\PY{p}{(}\PY{n}{h}\PY{p}{,} \PY{n}{d\PYZus{}model}\PY{p}{,} \PY{n}{dropout}\PY{p}{)}
+            \PY{n}{ff} \PY{o}{=} \PY{n}{PositionwiseFeedForward}\PY{p}{(}\PY{n}{d\PYZus{}model}\PY{p}{,} \PY{n}{d\PYZus{}ff}\PY{p}{,} \PY{n}{dropout}\PY{p}{)}
+            \PY{n}{position} \PY{o}{=} \PY{n}{PositionalEncoding}\PY{p}{(}\PY{n}{d\PYZus{}model}\PY{p}{,} \PY{n}{dropout}\PY{p}{)}
+            \PY{n}{model} \PY{o}{=} \PY{n}{EncoderDecoder}\PY{p}{(}
+                \PY{n}{Encoder}\PY{p}{(}\PY{n}{EncoderLayer}\PY{p}{(}\PY{n}{d\PYZus{}model}\PY{p}{,} \PY{n}{c}\PY{p}{(}\PY{n}{attn}\PY{p}{)}\PY{p}{,} \PY{n}{c}\PY{p}{(}\PY{n}{ff}\PY{p}{)}\PY{p}{,} \PY{n}{dropout}\PY{p}{)}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{,}
+                \PY{n}{Decoder}\PY{p}{(}\PY{n}{DecoderLayer}\PY{p}{(}\PY{n}{d\PYZus{}model}\PY{p}{,} \PY{n}{c}\PY{p}{(}\PY{n}{attn}\PY{p}{)}\PY{p}{,} \PY{n}{c}\PY{p}{(}\PY{n}{attn}\PY{p}{)}\PY{p}{,} \PY{n}{c}\PY{p}{(}\PY{n}{ff}\PY{p}{)}\PY{p}{,} \PY{n}{dropout}\PY{p}{)}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{,}
+                \PY{n}{nn}\PY{o}{.}\PY{n}{Sequential}\PY{p}{(}\PY{n}{Embeddings}\PY{p}{(}\PY{n}{d\PYZus{}model}\PY{p}{,} \PY{n}{src\PYZus{}vocab}\PY{p}{)}\PY{p}{,} \PY{n}{c}\PY{p}{(}\PY{n}{position}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                \PY{n}{nn}\PY{o}{.}\PY{n}{Sequential}\PY{p}{(}\PY{n}{Embeddings}\PY{p}{(}\PY{n}{d\PYZus{}model}\PY{p}{,} \PY{n}{tgt\PYZus{}vocab}\PY{p}{)}\PY{p}{,} \PY{n}{c}\PY{p}{(}\PY{n}{position}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                \PY{n}{Generator}\PY{p}{(}\PY{n}{d\PYZus{}model}\PY{p}{,} \PY{n}{tgt\PYZus{}vocab}\PY{p}{)}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} This was important from their code. Initialize parameters with Glorot or fan\PYZus{}avg.}
+            \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{model}\PY{o}{.}\PY{n}{parameters}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                \PY{k}{if} \PY{n}{p}\PY{o}{.}\PY{n}{dim}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1}\PY{p}{:}
+                    \PY{n}{nn}\PY{o}{.}\PY{n}{init}\PY{o}{.}\PY{n}{xavier\PYZus{}uniform}\PY{p}{(}\PY{n}{p}\PY{p}{)}
+            \PY{k}{return} \PY{n}{model}
+\end{Verbatim}
+
+
+    \hypertarget{training}{%
+\section{Training}\label{training}}
+
+This section describes the training regime for our models.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{k}{class} \PY{n+nc}{Batch}\PY{p}{:}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Object for holding a batch of data with mask during training.}\PY{l+s+s2}{\PYZdq{}}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{src}\PY{p}{,} \PY{n}{trg}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{pad}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{src} \PY{o}{=} \PY{n}{src}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{src\PYZus{}mask} \PY{o}{=} \PY{p}{(}\PY{n}{src} \PY{o}{!=} \PY{n}{pad}\PY{p}{)}\PY{o}{.}\PY{n}{unsqueeze}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}
+                \PY{k}{if} \PY{n}{trg} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{trg} \PY{o}{=} \PY{n}{trg}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{trg\PYZus{}y} \PY{o}{=} \PY{n}{trg}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{trg\PYZus{}mask} \PY{o}{=} \PYZbs{}
+                        \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{make\PYZus{}std\PYZus{}mask}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{trg}\PY{p}{,} \PY{n}{pad}\PY{p}{)}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{ntokens} \PY{o}{=} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{trg\PYZus{}y} \PY{o}{!=} \PY{n}{pad}\PY{p}{)}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+            
+            \PY{n+nd}{@staticmethod}
+            \PY{k}{def} \PY{n+nf}{make\PYZus{}std\PYZus{}mask}\PY{p}{(}\PY{n}{tgt}\PY{p}{,} \PY{n}{pad}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Create a mask to hide padding and future words.}\PY{l+s+s2}{\PYZdq{}}
+                \PY{n}{tgt\PYZus{}mask} \PY{o}{=} \PY{p}{(}\PY{n}{tgt} \PY{o}{!=} \PY{n}{pad}\PY{p}{)}\PY{o}{.}\PY{n}{unsqueeze}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}
+                \PY{n}{tgt\PYZus{}mask} \PY{o}{=} \PY{n}{tgt\PYZus{}mask} \PY{o}{\PYZam{}} \PY{n}{Variable}\PY{p}{(}
+                    \PY{n}{subsequent\PYZus{}mask}\PY{p}{(}\PY{n}{tgt}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{type\PYZus{}as}\PY{p}{(}\PY{n}{tgt\PYZus{}mask}\PY{o}{.}\PY{n}{data}\PY{p}{)}\PY{p}{)}
+                \PY{k}{return} \PY{n}{tgt\PYZus{}mask}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{k}{def} \PY{n+nf}{run\PYZus{}epoch}\PY{p}{(}\PY{n}{data\PYZus{}iter}\PY{p}{,} \PY{n}{model}\PY{p}{,} \PY{n}{loss\PYZus{}compute}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Standard Training and Logging Function}\PY{l+s+s2}{\PYZdq{}}
+            \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+            \PY{n}{total\PYZus{}tokens} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{n}{total\PYZus{}loss} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{n}{tokens} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{batch} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{data\PYZus{}iter}\PY{p}{)}\PY{p}{:}
+                \PY{n}{out} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{forward}\PY{p}{(}\PY{n}{batch}\PY{o}{.}\PY{n}{src}\PY{p}{,} \PY{n}{batch}\PY{o}{.}\PY{n}{trg}\PY{p}{,} 
+                                    \PY{n}{batch}\PY{o}{.}\PY{n}{src\PYZus{}mask}\PY{p}{,} \PY{n}{batch}\PY{o}{.}\PY{n}{trg\PYZus{}mask}\PY{p}{)}
+                \PY{n}{loss} \PY{o}{=} \PY{n}{loss\PYZus{}compute}\PY{p}{(}\PY{n}{out}\PY{p}{,} \PY{n}{batch}\PY{o}{.}\PY{n}{trg\PYZus{}y}\PY{p}{,} \PY{n}{batch}\PY{o}{.}\PY{n}{ntokens}\PY{p}{)}
+                \PY{n}{total\PYZus{}loss} \PY{o}{+}\PY{o}{=} \PY{n}{loss}
+                \PY{n}{total\PYZus{}tokens} \PY{o}{+}\PY{o}{=} \PY{n}{batch}\PY{o}{.}\PY{n}{ntokens}
+                \PY{n}{tokens} \PY{o}{+}\PY{o}{=} \PY{n}{batch}\PY{o}{.}\PY{n}{ntokens}
+                \PY{k}{if} \PY{n}{i} \PY{o}{\PYZpc{}} \PY{l+m+mi}{50} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                    \PY{n}{elapsed} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{start}
+                    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Epoch Step: }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{ Loss: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{ Tokens per Sec: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}
+                            \PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{loss} \PY{o}{/} \PY{n}{batch}\PY{o}{.}\PY{n}{ntokens}\PY{p}{,} \PY{n}{tokens} \PY{o}{/} \PY{n}{elapsed}\PY{p}{)}\PY{p}{)}
+                    \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+                    \PY{n}{tokens} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{k}{return} \PY{n}{total\PYZus{}loss} \PY{o}{/} \PY{n}{total\PYZus{}tokens}
+\end{Verbatim}
+
+
+    \hypertarget{training-data-and-batching}{%
+\subsection{Training Data and
+Batching}\label{training-data-and-batching}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{k}{global} \PY{n}{max\PYZus{}src\PYZus{}in\PYZus{}batch}\PY{p}{,} \PY{n}{max\PYZus{}tgt\PYZus{}in\PYZus{}batch}
+        \PY{k}{def} \PY{n+nf}{batch\PYZus{}size\PYZus{}fn}\PY{p}{(}\PY{n}{new}\PY{p}{,} \PY{n}{count}\PY{p}{,} \PY{n}{sofar}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Keep augmenting batch and calculate total number of tokens + padding.}\PY{l+s+s2}{\PYZdq{}}
+            \PY{k}{global} \PY{n}{max\PYZus{}src\PYZus{}in\PYZus{}batch}\PY{p}{,} \PY{n}{max\PYZus{}tgt\PYZus{}in\PYZus{}batch}
+            \PY{k}{if} \PY{n}{count} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                \PY{n}{max\PYZus{}src\PYZus{}in\PYZus{}batch} \PY{o}{=} \PY{l+m+mi}{0}
+                \PY{n}{max\PYZus{}tgt\PYZus{}in\PYZus{}batch} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{n}{max\PYZus{}src\PYZus{}in\PYZus{}batch} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{n}{max\PYZus{}src\PYZus{}in\PYZus{}batch}\PY{p}{,}  \PY{n+nb}{len}\PY{p}{(}\PY{n}{new}\PY{o}{.}\PY{n}{src}\PY{p}{)}\PY{p}{)}
+            \PY{n}{max\PYZus{}tgt\PYZus{}in\PYZus{}batch} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{n}{max\PYZus{}tgt\PYZus{}in\PYZus{}batch}\PY{p}{,}  \PY{n+nb}{len}\PY{p}{(}\PY{n}{new}\PY{o}{.}\PY{n}{trg}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{2}\PY{p}{)}
+            \PY{n}{src\PYZus{}elements} \PY{o}{=} \PY{n}{count} \PY{o}{*} \PY{n}{max\PYZus{}src\PYZus{}in\PYZus{}batch}
+            \PY{n}{tgt\PYZus{}elements} \PY{o}{=} \PY{n}{count} \PY{o}{*} \PY{n}{max\PYZus{}tgt\PYZus{}in\PYZus{}batch}
+            \PY{k}{return} \PY{n+nb}{max}\PY{p}{(}\PY{n}{src\PYZus{}elements}\PY{p}{,} \PY{n}{tgt\PYZus{}elements}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{optimizer}{%
+\subsection{Optimizer}\label{optimizer}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{c+c1}{\PYZsh{} Note: This part is incredibly important. }
+        \PY{c+c1}{\PYZsh{} Need to train with this setup of the model is very unstable.}
+        \PY{k}{class} \PY{n+nc}{NoamOpt}\PY{p}{:}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Optim wrapper that implements rate.}\PY{l+s+s2}{\PYZdq{}}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{model\PYZus{}size}\PY{p}{,} \PY{n}{factor}\PY{p}{,} \PY{n}{warmup}\PY{p}{,} \PY{n}{optimizer}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{optimizer} \PY{o}{=} \PY{n}{optimizer}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}step} \PY{o}{=} \PY{l+m+mi}{0}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{warmup} \PY{o}{=} \PY{n}{warmup}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{factor} \PY{o}{=} \PY{n}{factor}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{model\PYZus{}size} \PY{o}{=} \PY{n}{model\PYZus{}size}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}rate} \PY{o}{=} \PY{l+m+mi}{0}
+                
+            \PY{k}{def} \PY{n+nf}{step}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Update parameters and rate}\PY{l+s+s2}{\PYZdq{}}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}step} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                \PY{n}{rate} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{rate}\PY{p}{(}\PY{p}{)}
+                \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{optimizer}\PY{o}{.}\PY{n}{param\PYZus{}groups}\PY{p}{:}
+                    \PY{n}{p}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{rate}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}rate} \PY{o}{=} \PY{n}{rate}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{optimizer}\PY{o}{.}\PY{n}{step}\PY{p}{(}\PY{p}{)}
+                
+            \PY{k}{def} \PY{n+nf}{rate}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{step} \PY{o}{=} \PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Implement `lrate` above}\PY{l+s+s2}{\PYZdq{}}
+                \PY{k}{if} \PY{n}{step} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{:}
+                    \PY{n}{step} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}step}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{factor} \PY{o}{*} \PYZbs{}
+                    \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{model\PYZus{}size} \PY{o}{*}\PY{o}{*} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5}\PY{p}{)} \PY{o}{*}
+                    \PY{n+nb}{min}\PY{p}{(}\PY{n}{step} \PY{o}{*}\PY{o}{*} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{,} \PY{n}{step} \PY{o}{*} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{warmup}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.5}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                
+        \PY{k}{def} \PY{n+nf}{get\PYZus{}std\PYZus{}opt}\PY{p}{(}\PY{n}{model}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{NoamOpt}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{src\PYZus{}embed}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{d\PYZus{}model}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{4000}\PY{p}{,}
+                    \PY{n}{torch}\PY{o}{.}\PY{n}{optim}\PY{o}{.}\PY{n}{Adam}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{parameters}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{lr}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{betas}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{0.9}\PY{p}{,} \PY{l+m+mf}{0.98}\PY{p}{)}\PY{p}{,} \PY{n}{eps}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}9}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} Three settings of the lrate hyperparameters.}
+         \PY{n}{opts} \PY{o}{=} \PY{p}{[}\PY{n}{NoamOpt}\PY{p}{(}\PY{l+m+mi}{512}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{4000}\PY{p}{,} \PY{k+kc}{None}\PY{p}{)}\PY{p}{,} 
+                 \PY{n}{NoamOpt}\PY{p}{(}\PY{l+m+mi}{512}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{8000}\PY{p}{,} \PY{k+kc}{None}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{NoamOpt}\PY{p}{(}\PY{l+m+mi}{256}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{4000}\PY{p}{,} \PY{k+kc}{None}\PY{p}{)}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{20000}\PY{p}{)}\PY{p}{,} \PY{p}{[}\PY{p}{[}\PY{n}{opt}\PY{o}{.}\PY{n}{rate}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{opt} \PY{o+ow}{in} \PY{n}{opts}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{20000}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{512:4000}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{512:8000}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{256:4000}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{k+kc}{None}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_50_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{regularization}{%
+\subsection{Regularization}\label{regularization}}
+
+\hypertarget{label-smoothing}{%
+\subsubsection{Label Smoothing}\label{label-smoothing}}
+
+During training, we employed label smoothing of value
+\(\epsilon_{ls}=0.1\) \href{DBLP:journals/corr/SzegedyVISW15}{(cite)}.\\
+This hurts perplexity, as the model learns to be more unsure, but
+improves accuracy and BLEU score.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{k}{class} \PY{n+nc}{LabelSmoothing}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{Module}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Implement label smoothing.}\PY{l+s+s2}{\PYZdq{}}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{size}\PY{p}{,} \PY{n}{padding\PYZus{}idx}\PY{p}{,} \PY{n}{smoothing}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{super}\PY{p}{(}\PY{n}{LabelSmoothing}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{criterion} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{KLDivLoss}\PY{p}{(}\PY{n}{size\PYZus{}average}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{padding\PYZus{}idx} \PY{o}{=} \PY{n}{padding\PYZus{}idx}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{confidence} \PY{o}{=} \PY{l+m+mf}{1.0} \PY{o}{\PYZhy{}} \PY{n}{smoothing}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{smoothing} \PY{o}{=} \PY{n}{smoothing}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{size} \PY{o}{=} \PY{n}{size}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{true\PYZus{}dist} \PY{o}{=} \PY{k+kc}{None}
+                
+            \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{target}\PY{p}{)}\PY{p}{:}
+                \PY{k}{assert} \PY{n}{x}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{==} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{size}
+                \PY{n}{true\PYZus{}dist} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{clone}\PY{p}{(}\PY{p}{)}
+                \PY{n}{true\PYZus{}dist}\PY{o}{.}\PY{n}{fill\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{smoothing} \PY{o}{/} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{size} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+                \PY{n}{true\PYZus{}dist}\PY{o}{.}\PY{n}{scatter\PYZus{}}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{target}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{unsqueeze}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{confidence}\PY{p}{)}
+                \PY{n}{true\PYZus{}dist}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{padding\PYZus{}idx}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+                \PY{n}{mask} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{nonzero}\PY{p}{(}\PY{n}{target}\PY{o}{.}\PY{n}{data} \PY{o}{==} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{padding\PYZus{}idx}\PY{p}{)}
+                \PY{k}{if} \PY{n}{mask}\PY{o}{.}\PY{n}{dim}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                    \PY{n}{true\PYZus{}dist}\PY{o}{.}\PY{n}{index\PYZus{}fill\PYZus{}}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{mask}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+m+mf}{0.0}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{true\PYZus{}dist} \PY{o}{=} \PY{n}{true\PYZus{}dist}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{criterion}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{Variable}\PY{p}{(}\PY{n}{true\PYZus{}dist}\PY{p}{,} \PY{n}{requires\PYZus{}grad}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{}Example}
+         \PY{n}{crit} \PY{o}{=} \PY{n}{LabelSmoothing}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}
+         \PY{n}{predict} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{FloatTensor}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.2}\PY{p}{,} \PY{l+m+mf}{0.7}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+                                      \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.2}\PY{p}{,} \PY{l+m+mf}{0.7}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} 
+                                      \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.2}\PY{p}{,} \PY{l+m+mf}{0.7}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{v} \PY{o}{=} \PY{n}{crit}\PY{p}{(}\PY{n}{Variable}\PY{p}{(}\PY{n}{predict}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} 
+                  \PY{n}{Variable}\PY{p}{(}\PY{n}{torch}\PY{o}{.}\PY{n}{LongTensor}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Show the target distributions expected by the system.}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{crit}\PY{o}{.}\PY{n}{true\PYZus{}dist}\PY{p}{)}
+         \PY{k+kc}{None}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_53_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} Label smoothing starts to penalize the model }
+         \PY{c+c1}{\PYZsh{} if it gets very confident about a given choice}
+         \PY{n}{crit} \PY{o}{=} \PY{n}{LabelSmoothing}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.2}\PY{p}{)}
+         \PY{k}{def} \PY{n+nf}{loss}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{n}{d} \PY{o}{=} \PY{n}{x} \PY{o}{+} \PY{l+m+mi}{3} \PY{o}{*} \PY{l+m+mi}{1}
+             \PY{n}{predict} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{FloatTensor}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{x} \PY{o}{/} \PY{n}{d}\PY{p}{,} \PY{l+m+mi}{1} \PY{o}{/} \PY{n}{d}\PY{p}{,} \PY{l+m+mi}{1} \PY{o}{/} \PY{n}{d}\PY{p}{,} \PY{l+m+mi}{1} \PY{o}{/} \PY{n}{d}\PY{p}{]}\PY{p}{,}
+                                          \PY{p}{]}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}print(predict)}
+             \PY{k}{return} \PY{n}{crit}\PY{p}{(}\PY{n}{Variable}\PY{p}{(}\PY{n}{predict}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                          \PY{n}{Variable}\PY{p}{(}\PY{n}{torch}\PY{o}{.}\PY{n}{LongTensor}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}\PY{p}{,} \PY{p}{[}\PY{n}{loss}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} [<matplotlib.lines.Line2D at 0x7fc570a65400>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_54_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{memory-optimization}{%
+\subsubsection{Memory Optimization}\label{memory-optimization}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{k}{def} \PY{n+nf}{loss\PYZus{}backprop}\PY{p}{(}\PY{n}{generator}\PY{p}{,} \PY{n}{criterion}\PY{p}{,} \PY{n}{out}\PY{p}{,} \PY{n}{targets}\PY{p}{,} \PY{n}{normalize}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    Memory optmization. Compute each timestep separately and sum grads.}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{k}{assert} \PY{n}{out}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{==} \PY{n}{targets}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{total} \PY{o}{=} \PY{l+m+mf}{0.0}
+            \PY{n}{out\PYZus{}grad} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{out}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{out\PYZus{}column} \PY{o}{=} \PY{n}{Variable}\PY{p}{(}\PY{n}{out}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{,} \PY{n}{requires\PYZus{}grad}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+                \PY{n}{gen} \PY{o}{=} \PY{n}{generator}\PY{p}{(}\PY{n}{out\PYZus{}column}\PY{p}{)}
+                \PY{n}{loss} \PY{o}{=} \PY{n}{criterion}\PY{p}{(}\PY{n}{gen}\PY{p}{,} \PY{n}{targets}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{i}\PY{p}{]}\PY{p}{)} \PY{o}{/} \PY{n}{normalize}
+                \PY{n}{total} \PY{o}{+}\PY{o}{=} \PY{n}{loss}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                \PY{n}{loss}\PY{o}{.}\PY{n}{backward}\PY{p}{(}\PY{p}{)}
+                \PY{n}{out\PYZus{}grad}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{out\PYZus{}column}\PY{o}{.}\PY{n}{grad}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{clone}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+            \PY{n}{out\PYZus{}grad} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{stack}\PY{p}{(}\PY{n}{out\PYZus{}grad}\PY{p}{,} \PY{n}{dim}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{out}\PY{o}{.}\PY{n}{backward}\PY{p}{(}\PY{n}{gradient}\PY{o}{=}\PY{n}{out\PYZus{}grad}\PY{p}{)}
+            \PY{k}{return} \PY{n}{total}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{k}{def} \PY{n+nf}{make\PYZus{}std\PYZus{}mask}\PY{p}{(}\PY{n}{src}\PY{p}{,} \PY{n}{tgt}\PY{p}{,} \PY{n}{pad}\PY{p}{)}\PY{p}{:}
+            \PY{n}{src\PYZus{}mask} \PY{o}{=} \PY{p}{(}\PY{n}{src} \PY{o}{!=} \PY{n}{pad}\PY{p}{)}\PY{o}{.}\PY{n}{unsqueeze}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}
+            \PY{n}{tgt\PYZus{}mask} \PY{o}{=} \PY{p}{(}\PY{n}{tgt} \PY{o}{!=} \PY{n}{pad}\PY{p}{)}\PY{o}{.}\PY{n}{unsqueeze}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}
+            \PY{n}{tgt\PYZus{}mask} \PY{o}{=} \PY{n}{tgt\PYZus{}mask} \PY{o}{\PYZam{}} \PY{n}{Variable}\PY{p}{(}\PY{n}{subsequent\PYZus{}mask}\PY{p}{(}\PY{n}{tgt}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{type\PYZus{}as}\PY{p}{(}\PY{n}{tgt\PYZus{}mask}\PY{o}{.}\PY{n}{data}\PY{p}{)}\PY{p}{)}
+            \PY{k}{return} \PY{n}{src\PYZus{}mask}\PY{p}{,} \PY{n}{tgt\PYZus{}mask}
+\end{Verbatim}
+
+
+    \hypertarget{updated-code-increase-reporting-nbatches-from-10-to-100}{%
+\subsubsection{Updated Code: Increase Reporting nBatches from 10 to
+100}\label{updated-code-increase-reporting-nbatches-from-10-to-100}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{k}{def} \PY{n+nf}{train\PYZus{}epoch}\PY{p}{(}\PY{n}{train\PYZus{}iter}\PY{p}{,} \PY{n}{model}\PY{p}{,} \PY{n}{criterion}\PY{p}{,} \PY{n}{opt}\PY{p}{,} \PY{n}{transpose}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+            \PY{n}{model}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{p}{)}
+            \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{batch} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{train\PYZus{}iter}\PY{p}{)}\PY{p}{:}
+                \PY{n}{src}\PY{p}{,} \PY{n}{trg}\PY{p}{,} \PY{n}{src\PYZus{}mask}\PY{p}{,} \PY{n}{trg\PYZus{}mask} \PY{o}{=} \PYZbs{}
+                    \PY{n}{batch}\PY{o}{.}\PY{n}{src}\PY{p}{,} \PY{n}{batch}\PY{o}{.}\PY{n}{trg}\PY{p}{,} \PY{n}{batch}\PY{o}{.}\PY{n}{src\PYZus{}mask}\PY{p}{,} \PY{n}{batch}\PY{o}{.}\PY{n}{trg\PYZus{}mask}
+                \PY{n}{out} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{forward}\PY{p}{(}\PY{n}{src}\PY{p}{,} \PY{n}{trg}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{src\PYZus{}mask}\PY{p}{,} \PY{n}{trg\PYZus{}mask}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                \PY{n}{loss} \PY{o}{=} \PY{n}{loss\PYZus{}backprop}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{generator}\PY{p}{,} \PY{n}{criterion}\PY{p}{,} \PY{n}{out}\PY{p}{,} \PY{n}{trg}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{batch}\PY{o}{.}\PY{n}{ntokens}\PY{p}{)} 
+                                
+                \PY{n}{model\PYZus{}opt}\PY{o}{.}\PY{n}{step}\PY{p}{(}\PY{p}{)}
+                \PY{n}{model\PYZus{}opt}\PY{o}{.}\PY{n}{optimizer}\PY{o}{.}\PY{n}{zero\PYZus{}grad}\PY{p}{(}\PY{p}{)}
+                \PY{k}{if} \PY{n}{i} \PY{o}{\PYZpc{}} \PY{l+m+mi}{100} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                    \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{loss}\PY{p}{,} \PY{n}{model\PYZus{}opt}\PY{o}{.}\PY{n}{\PYZus{}rate}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{k}{def} \PY{n+nf}{valid\PYZus{}epoch}\PY{p}{(}\PY{n}{valid\PYZus{}iter}\PY{p}{,} \PY{n}{model}\PY{p}{,} \PY{n}{criterion}\PY{p}{,} \PY{n}{transpose}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+            \PY{n}{model}\PY{o}{.}\PY{n}{test}\PY{p}{(}\PY{p}{)}
+            \PY{n}{total} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{k}{for} \PY{n}{batch} \PY{o+ow}{in} \PY{n}{valid\PYZus{}iter}\PY{p}{:}
+                \PY{n}{src}\PY{p}{,} \PY{n}{trg}\PY{p}{,} \PY{n}{src\PYZus{}mask}\PY{p}{,} \PY{n}{trg\PYZus{}mask} \PY{o}{=} \PYZbs{}
+                    \PY{n}{batch}\PY{o}{.}\PY{n}{src}\PY{p}{,} \PY{n}{batch}\PY{o}{.}\PY{n}{trg}\PY{p}{,} \PY{n}{batch}\PY{o}{.}\PY{n}{src\PYZus{}mask}\PY{p}{,} \PY{n}{batch}\PY{o}{.}\PY{n}{trg\PYZus{}mask}
+                \PY{n}{out} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{forward}\PY{p}{(}\PY{n}{src}\PY{p}{,} \PY{n}{trg}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{src\PYZus{}mask}\PY{p}{,} \PY{n}{trg\PYZus{}mask}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                \PY{n}{loss} \PY{o}{=} \PY{n}{loss\PYZus{}backprop}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{generator}\PY{p}{,} \PY{n}{criterion}\PY{p}{,} \PY{n}{out}\PY{p}{,} \PY{n}{trg}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{batch}\PY{o}{.}\PY{n}{ntokens}\PY{p}{)} 
+                
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{k}{class} \PY{n+nc}{Batch}\PY{p}{:}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{src}\PY{p}{,} \PY{n}{trg}\PY{p}{,} \PY{n}{src\PYZus{}mask}\PY{p}{,} \PY{n}{trg\PYZus{}mask}\PY{p}{,} \PY{n}{ntokens}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{src} \PY{o}{=} \PY{n}{src}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{trg} \PY{o}{=} \PY{n}{trg}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{src\PYZus{}mask} \PY{o}{=} \PY{n}{src\PYZus{}mask}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{trg\PYZus{}mask} \PY{o}{=} \PY{n}{trg\PYZus{}mask}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{ntokens} \PY{o}{=} \PY{n}{ntokens}
+            
+        \PY{k}{def} \PY{n+nf}{data\PYZus{}gen}\PY{p}{(}\PY{n}{V}\PY{p}{,} \PY{n}{batch}\PY{p}{,} \PY{n}{nbatches}\PY{p}{)}\PY{p}{:}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{nbatches}\PY{p}{)}\PY{p}{:}
+                \PY{n}{data} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{from\PYZus{}numpy}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{V}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{n}{batch}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                \PY{n}{src} \PY{o}{=} \PY{n}{Variable}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{requires\PYZus{}grad}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+                \PY{n}{tgt} \PY{o}{=} \PY{n}{Variable}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{requires\PYZus{}grad}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+                \PY{n}{src\PYZus{}mask}\PY{p}{,} \PY{n}{tgt\PYZus{}mask} \PY{o}{=} \PY{n}{make\PYZus{}std\PYZus{}mask}\PY{p}{(}\PY{n}{src}\PY{p}{,} \PY{n}{tgt}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+                \PY{k}{yield} \PY{n}{Batch}\PY{p}{(}\PY{n}{src}\PY{p}{,} \PY{n}{tgt}\PY{p}{,} \PY{n}{src\PYZus{}mask}\PY{p}{,} \PY{n}{tgt\PYZus{}mask}\PY{p}{,} \PY{p}{(}\PY{n}{tgt}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{load-data-and-start-training}{%
+\section{Load Data and Start
+Training}\label{load-data-and-start-training}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{k+kn}{from} \PY{n+nn}{torchtext} \PY{k}{import} \PY{n}{data}\PY{p}{,} \PY{n}{datasets}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{o}{!}pip install torchtext spacy
+         \PY{o}{!}python \PYZhy{}m spacy download en
+         \PY{o}{!}python \PYZhy{}m spacy download de
+         \PY{o}{!}python \PYZhy{}m spacy download fr
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Requirement already satisfied: torchtext in /usr/local/lib/python3.6/dist-packages (0.2.3)
+Requirement already satisfied: spacy in /usr/local/lib/python3.6/dist-packages (2.1.6)
+Requirement already satisfied: requests in /usr/local/lib/python3.6/dist-packages (from torchtext) (2.21.0)
+Requirement already satisfied: tqdm in /usr/local/lib/python3.6/dist-packages (from torchtext) (4.28.1)
+Requirement already satisfied: srsly<1.1.0,>=0.0.6 in /usr/local/lib/python3.6/dist-packages (from spacy) (0.0.7)
+Requirement already satisfied: plac<1.0.0,>=0.9.6 in /usr/local/lib/python3.6/dist-packages (from spacy) (0.9.6)
+Requirement already satisfied: wasabi<1.1.0,>=0.2.0 in /usr/local/lib/python3.6/dist-packages (from spacy) (0.2.2)
+Requirement already satisfied: numpy>=1.15.0 in /usr/local/lib/python3.6/dist-packages (from spacy) (1.16.4)
+Requirement already satisfied: thinc<7.1.0,>=7.0.8 in /usr/local/lib/python3.6/dist-packages (from spacy) (7.0.8)
+Requirement already satisfied: murmurhash<1.1.0,>=0.28.0 in /usr/local/lib/python3.6/dist-packages (from spacy) (1.0.2)
+Requirement already satisfied: cymem<2.1.0,>=2.0.2 in /usr/local/lib/python3.6/dist-packages (from spacy) (2.0.2)
+Requirement already satisfied: preshed<2.1.0,>=2.0.1 in /usr/local/lib/python3.6/dist-packages (from spacy) (2.0.1)
+Requirement already satisfied: blis<0.3.0,>=0.2.2 in /usr/local/lib/python3.6/dist-packages (from spacy) (0.2.4)
+Requirement already satisfied: chardet<3.1.0,>=3.0.2 in /usr/local/lib/python3.6/dist-packages (from requests->torchtext) (3.0.4)
+Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.6/dist-packages (from requests->torchtext) (2019.6.16)
+Requirement already satisfied: idna<2.9,>=2.5 in /usr/local/lib/python3.6/dist-packages (from requests->torchtext) (2.8)
+Requirement already satisfied: urllib3<1.25,>=1.21.1 in /usr/local/lib/python3.6/dist-packages (from requests->torchtext) (1.24.3)
+Requirement already satisfied: en\_core\_web\_sm==2.1.0 from https://github.com/explosion/spacy-models/releases/download/en\_core\_web\_sm-2.1.0/en\_core\_web\_sm-2.1.0.tar.gz\#egg=en\_core\_web\_sm==2.1.0 in /usr/local/lib/python3.6/dist-packages (2.1.0)
+\textcolor{ansi-green}{✔ Download and installation successful}
+You can now load the model via spacy.load('en\_core\_web\_sm')
+\textcolor{ansi-green}{✔ Linking successful}
+/usr/local/lib/python3.6/dist-packages/en\_core\_web\_sm -->
+/usr/local/lib/python3.6/dist-packages/spacy/data/en
+You can now load the model via spacy.load('en')
+Requirement already satisfied: de\_core\_news\_sm==2.1.0 from https://github.com/explosion/spacy-models/releases/download/de\_core\_news\_sm-2.1.0/de\_core\_news\_sm-2.1.0.tar.gz\#egg=de\_core\_news\_sm==2.1.0 in /usr/local/lib/python3.6/dist-packages (2.1.0)
+\textcolor{ansi-green}{✔ Download and installation successful}
+You can now load the model via spacy.load('de\_core\_news\_sm')
+\textcolor{ansi-green}{✔ Linking successful}
+/usr/local/lib/python3.6/dist-packages/de\_core\_news\_sm -->
+/usr/local/lib/python3.6/dist-packages/spacy/data/de
+You can now load the model via spacy.load('de')
+Requirement already satisfied: fr\_core\_news\_sm==2.1.0 from https://github.com/explosion/spacy-models/releases/download/fr\_core\_news\_sm-2.1.0/fr\_core\_news\_sm-2.1.0.tar.gz\#egg=fr\_core\_news\_sm==2.1.0 in /usr/local/lib/python3.6/dist-packages (2.1.0)
+\textcolor{ansi-green}{✔ Download and installation successful}
+You can now load the model via spacy.load('fr\_core\_news\_sm')
+\textcolor{ansi-green}{✔ Linking successful}
+/usr/local/lib/python3.6/dist-packages/fr\_core\_news\_sm -->
+/usr/local/lib/python3.6/dist-packages/spacy/data/fr
+You can now load the model via spacy.load('fr')
+
+    \end{Verbatim}
+
+    \hypertarget{updated-code-translate-from-french-to-english}{%
+\subsection{Updated Code: Translate From French to
+English}\label{updated-code-translate-from-french-to-english}}
+
+Original code translated from German to English
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{c+c1}{\PYZsh{} Load words from IWSLT}
+        
+        \PY{c+c1}{\PYZsh{}!pip install torchtext spacy}
+        \PY{c+c1}{\PYZsh{}!python \PYZhy{}m spacy download en}
+        \PY{c+c1}{\PYZsh{}!python \PYZhy{}m spacy download de}
+        
+        \PY{k+kn}{import} \PY{n+nn}{spacy}
+        \PY{c+c1}{\PYZsh{}spacy\PYZus{}de = spacy.load(\PYZsq{}de\PYZsq{})}
+        \PY{n}{spacy\PYZus{}en} \PY{o}{=} \PY{n}{spacy}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{en}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{spacy\PYZus{}fr} \PY{o}{=} \PY{n}{spacy}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{tokenize\PYZus{}fr}\PY{p}{(}\PY{n}{text}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{p}{[}\PY{n}{tok}\PY{o}{.}\PY{n}{text} \PY{k}{for} \PY{n}{tok} \PY{o+ow}{in} \PY{n}{spacy\PYZus{}fr}\PY{o}{.}\PY{n}{tokenizer}\PY{p}{(}\PY{n}{text}\PY{p}{)}\PY{p}{]}
+        
+        \PY{k}{def} \PY{n+nf}{tokenize\PYZus{}en}\PY{p}{(}\PY{n}{text}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{p}{[}\PY{n}{tok}\PY{o}{.}\PY{n}{text} \PY{k}{for} \PY{n}{tok} \PY{o+ow}{in} \PY{n}{spacy\PYZus{}en}\PY{o}{.}\PY{n}{tokenizer}\PY{p}{(}\PY{n}{text}\PY{p}{)}\PY{p}{]}
+        
+        \PY{n}{BOS\PYZus{}WORD} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZlt{}s\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{EOS\PYZus{}WORD} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZlt{}/s\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{BLANK\PYZus{}WORD} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZlt{}blank\PYZgt{}}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{SRC} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{Field}\PY{p}{(}\PY{n}{tokenize}\PY{o}{=}\PY{n}{tokenize\PYZus{}fr}\PY{p}{,} \PY{n}{pad\PYZus{}token}\PY{o}{=}\PY{n}{BLANK\PYZus{}WORD}\PY{p}{)}
+        \PY{n}{TGT} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{Field}\PY{p}{(}\PY{n}{tokenize}\PY{o}{=}\PY{n}{tokenize\PYZus{}en}\PY{p}{,} \PY{n}{init\PYZus{}token} \PY{o}{=} \PY{n}{BOS\PYZus{}WORD}\PY{p}{,} 
+                         \PY{n}{eos\PYZus{}token} \PY{o}{=} \PY{n}{EOS\PYZus{}WORD}\PY{p}{,} \PY{n}{pad\PYZus{}token}\PY{o}{=}\PY{n}{BLANK\PYZus{}WORD}\PY{p}{)}
+        
+        \PY{n}{MAX\PYZus{}LEN} \PY{o}{=} \PY{l+m+mi}{100}
+        \PY{n}{train}\PY{p}{,} \PY{n}{val}\PY{p}{,} \PY{n}{test} \PY{o}{=} \PY{n}{datasets}\PY{o}{.}\PY{n}{IWSLT}\PY{o}{.}\PY{n}{splits}\PY{p}{(}\PY{n}{exts}\PY{o}{=}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.fr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.en}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{n}{fields}\PY{o}{=}\PY{p}{(}\PY{n}{SRC}\PY{p}{,} \PY{n}{TGT}\PY{p}{)}\PY{p}{,} 
+                                                 \PY{n}{filter\PYZus{}pred}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{vars}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{src}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{MAX\PYZus{}LEN} \PY{o+ow}{and} 
+                                                 \PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{vars}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{MAX\PYZus{}LEN}\PY{p}{)}
+        \PY{n}{MIN\PYZus{}FREQ} \PY{o}{=} \PY{l+m+mi}{1}
+        \PY{n}{SRC}\PY{o}{.}\PY{n}{build\PYZus{}vocab}\PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{src}\PY{p}{,} \PY{n}{min\PYZus{}freq}\PY{o}{=}\PY{n}{MIN\PYZus{}FREQ}\PY{p}{)}
+        \PY{n}{TGT}\PY{o}{.}\PY{n}{build\PYZus{}vocab}\PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{trg}\PY{p}{,} \PY{n}{min\PYZus{}freq}\PY{o}{=}\PY{n}{MIN\PYZus{}FREQ}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{c+c1}{\PYZsh{} Detail. Batching seems to matter quite a bit. }
+        \PY{c+c1}{\PYZsh{} This is temporary code for dynamic batching based on number of tokens.}
+        \PY{c+c1}{\PYZsh{} This code should all go away once things get merged in this library.}
+        
+        \PY{n}{BATCH\PYZus{}SIZE} \PY{o}{=} \PY{l+m+mi}{4096}
+        \PY{k}{global} \PY{n}{max\PYZus{}src\PYZus{}in\PYZus{}batch}\PY{p}{,} \PY{n}{max\PYZus{}tgt\PYZus{}in\PYZus{}batch}
+        \PY{k}{def} \PY{n+nf}{batch\PYZus{}size\PYZus{}fn}\PY{p}{(}\PY{n}{new}\PY{p}{,} \PY{n}{count}\PY{p}{,} \PY{n}{sofar}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Keep augmenting batch and calculate total number of tokens + padding.}\PY{l+s+s2}{\PYZdq{}}
+            \PY{k}{global} \PY{n}{max\PYZus{}src\PYZus{}in\PYZus{}batch}\PY{p}{,} \PY{n}{max\PYZus{}tgt\PYZus{}in\PYZus{}batch}
+            \PY{k}{if} \PY{n}{count} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                \PY{n}{max\PYZus{}src\PYZus{}in\PYZus{}batch} \PY{o}{=} \PY{l+m+mi}{0}
+                \PY{n}{max\PYZus{}tgt\PYZus{}in\PYZus{}batch} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{n}{max\PYZus{}src\PYZus{}in\PYZus{}batch} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{n}{max\PYZus{}src\PYZus{}in\PYZus{}batch}\PY{p}{,}  \PY{n+nb}{len}\PY{p}{(}\PY{n}{new}\PY{o}{.}\PY{n}{src}\PY{p}{)}\PY{p}{)}
+            \PY{n}{max\PYZus{}tgt\PYZus{}in\PYZus{}batch} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{n}{max\PYZus{}tgt\PYZus{}in\PYZus{}batch}\PY{p}{,}  \PY{n+nb}{len}\PY{p}{(}\PY{n}{new}\PY{o}{.}\PY{n}{trg}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{2}\PY{p}{)}
+            \PY{n}{src\PYZus{}elements} \PY{o}{=} \PY{n}{count} \PY{o}{*} \PY{n}{max\PYZus{}src\PYZus{}in\PYZus{}batch}
+            \PY{n}{tgt\PYZus{}elements} \PY{o}{=} \PY{n}{count} \PY{o}{*} \PY{n}{max\PYZus{}tgt\PYZus{}in\PYZus{}batch}
+            \PY{k}{return} \PY{n+nb}{max}\PY{p}{(}\PY{n}{src\PYZus{}elements}\PY{p}{,} \PY{n}{tgt\PYZus{}elements}\PY{p}{)}
+        
+        \PY{k}{class} \PY{n+nc}{MyIterator}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{Iterator}\PY{p}{)}\PY{p}{:}
+            \PY{k}{def} \PY{n+nf}{create\PYZus{}batches}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{train}\PY{p}{:}
+                    \PY{k}{def} \PY{n+nf}{pool}\PY{p}{(}\PY{n}{d}\PY{p}{,} \PY{n}{random\PYZus{}shuffler}\PY{p}{)}\PY{p}{:}
+                        \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{data}\PY{o}{.}\PY{n}{batch}\PY{p}{(}\PY{n}{d}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{batch\PYZus{}size} \PY{o}{*} \PY{l+m+mi}{100}\PY{p}{)}\PY{p}{:}
+                            \PY{n}{p\PYZus{}batch} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{batch}\PY{p}{(}
+                                \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{sort\PYZus{}key}\PY{p}{)}\PY{p}{,}
+                                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{batch\PYZus{}size}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{batch\PYZus{}size\PYZus{}fn}\PY{p}{)}
+                            \PY{k}{for} \PY{n}{b} \PY{o+ow}{in} \PY{n}{random\PYZus{}shuffler}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{p\PYZus{}batch}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                                \PY{k}{yield} \PY{n}{b}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{batches} \PY{o}{=} \PY{n}{pool}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{data}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{random\PYZus{}shuffler}\PY{p}{)}
+                    
+                \PY{k}{else}\PY{p}{:}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{batches} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                    \PY{k}{for} \PY{n}{b} \PY{o+ow}{in} \PY{n}{data}\PY{o}{.}\PY{n}{batch}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{data}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{batch\PYZus{}size}\PY{p}{,}
+                                                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{batch\PYZus{}size\PYZus{}fn}\PY{p}{)}\PY{p}{:}
+                        \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{batches}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{sorted}\PY{p}{(}\PY{n}{b}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{sort\PYZus{}key}\PY{p}{)}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{rebatch}\PY{p}{(}\PY{n}{pad\PYZus{}idx}\PY{p}{,} \PY{n}{batch}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Fix order in torchtext to match ours}\PY{l+s+s2}{\PYZdq{}}
+            \PY{n}{src}\PY{p}{,} \PY{n}{trg} \PY{o}{=} \PY{n}{batch}\PY{o}{.}\PY{n}{src}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{batch}\PY{o}{.}\PY{n}{trg}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{src\PYZus{}mask}\PY{p}{,} \PY{n}{trg\PYZus{}mask} \PY{o}{=} \PY{n}{make\PYZus{}std\PYZus{}mask}\PY{p}{(}\PY{n}{src}\PY{p}{,} \PY{n}{trg}\PY{p}{,} \PY{n}{pad\PYZus{}idx}\PY{p}{)}
+            \PY{k}{return} \PY{n}{Batch}\PY{p}{(}\PY{n}{src}\PY{p}{,} \PY{n}{trg}\PY{p}{,} \PY{n}{src\PYZus{}mask}\PY{p}{,} \PY{n}{trg\PYZus{}mask}\PY{p}{,} \PY{p}{(}\PY{n}{trg}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]} \PY{o}{!=} \PY{n}{pad\PYZus{}idx}\PY{p}{)}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{train\PYZus{}iter} \PY{o}{=} \PY{n}{MyIterator}\PY{p}{(}\PY{n}{train}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{n}{BATCH\PYZus{}SIZE}\PY{p}{,} \PY{n}{device}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}
+                                \PY{n}{repeat}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{sort\PYZus{}key}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{src}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{trg}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                                \PY{n}{batch\PYZus{}size\PYZus{}fn}\PY{o}{=}\PY{n}{batch\PYZus{}size\PYZus{}fn}\PY{p}{,} \PY{n}{train}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{valid\PYZus{}iter} \PY{o}{=} \PY{n}{MyIterator}\PY{p}{(}\PY{n}{val}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{n}{BATCH\PYZus{}SIZE}\PY{p}{,} \PY{n}{device}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}
+                                \PY{n}{repeat}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{sort\PYZus{}key}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{src}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{trg}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                                \PY{n}{batch\PYZus{}size\PYZus{}fn}\PY{o}{=}\PY{n}{batch\PYZus{}size\PYZus{}fn}\PY{p}{,} \PY{n}{train}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{show-model-summary}{%
+\subsubsection{Show Model Summary}\label{show-model-summary}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{} Create the model and load it onto our GPU.}
+         \PY{n}{pad\PYZus{}idx} \PY{o}{=} \PY{n}{TGT}\PY{o}{.}\PY{n}{vocab}\PY{o}{.}\PY{n}{stoi}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZlt{}blank\PYZgt{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{model} \PY{o}{=} \PY{n}{make\PYZus{}model}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{SRC}\PY{o}{.}\PY{n}{vocab}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{TGT}\PY{o}{.}\PY{n}{vocab}\PY{p}{)}\PY{p}{,} \PY{n}{N}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{)}
+         \PY{n}{model\PYZus{}opt} \PY{o}{=} \PY{n}{get\PYZus{}std\PYZus{}opt}\PY{p}{(}\PY{n}{model}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.6/dist-packages/torch/cuda/\_\_init\_\_.py:89: UserWarning: 
+    Found GPU0 Tesla T4 which requires CUDA\_VERSION >= 8000 for
+     optimal performance and fast startup time, but your PyTorch was compiled
+     with CUDA\_VERSION 8000. Please install the correct PyTorch binary
+     using instructions from http://pytorch.org
+    
+  warnings.warn(error\_str \% (d, name, 8000, CUDA\_VERSION))
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:} EncoderDecoder(
+           (encoder): Encoder(
+             (layers): ModuleList(
+               (0): EncoderLayer(
+                 (self\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (feed\_forward): PositionwiseFeedForward(
+                   (w\_1): Linear(in\_features=512, out\_features=2048)
+                   (w\_2): Linear(in\_features=2048, out\_features=512)
+                   (dropout): Dropout(p=0.1)
+                 )
+                 (sublayer): ModuleList(
+                   (0): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (1): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                 )
+               )
+               (1): EncoderLayer(
+                 (self\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (feed\_forward): PositionwiseFeedForward(
+                   (w\_1): Linear(in\_features=512, out\_features=2048)
+                   (w\_2): Linear(in\_features=2048, out\_features=512)
+                   (dropout): Dropout(p=0.1)
+                 )
+                 (sublayer): ModuleList(
+                   (0): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (1): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                 )
+               )
+               (2): EncoderLayer(
+                 (self\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (feed\_forward): PositionwiseFeedForward(
+                   (w\_1): Linear(in\_features=512, out\_features=2048)
+                   (w\_2): Linear(in\_features=2048, out\_features=512)
+                   (dropout): Dropout(p=0.1)
+                 )
+                 (sublayer): ModuleList(
+                   (0): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (1): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                 )
+               )
+               (3): EncoderLayer(
+                 (self\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (feed\_forward): PositionwiseFeedForward(
+                   (w\_1): Linear(in\_features=512, out\_features=2048)
+                   (w\_2): Linear(in\_features=2048, out\_features=512)
+                   (dropout): Dropout(p=0.1)
+                 )
+                 (sublayer): ModuleList(
+                   (0): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (1): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                 )
+               )
+               (4): EncoderLayer(
+                 (self\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (feed\_forward): PositionwiseFeedForward(
+                   (w\_1): Linear(in\_features=512, out\_features=2048)
+                   (w\_2): Linear(in\_features=2048, out\_features=512)
+                   (dropout): Dropout(p=0.1)
+                 )
+                 (sublayer): ModuleList(
+                   (0): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (1): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                 )
+               )
+               (5): EncoderLayer(
+                 (self\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (feed\_forward): PositionwiseFeedForward(
+                   (w\_1): Linear(in\_features=512, out\_features=2048)
+                   (w\_2): Linear(in\_features=2048, out\_features=512)
+                   (dropout): Dropout(p=0.1)
+                 )
+                 (sublayer): ModuleList(
+                   (0): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (1): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                 )
+               )
+             )
+             (norm): LayerNorm(
+             )
+           )
+           (decoder): Decoder(
+             (layers): ModuleList(
+               (0): DecoderLayer(
+                 (self\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (src\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (feed\_forward): PositionwiseFeedForward(
+                   (w\_1): Linear(in\_features=512, out\_features=2048)
+                   (w\_2): Linear(in\_features=2048, out\_features=512)
+                   (dropout): Dropout(p=0.1)
+                 )
+                 (sublayer): ModuleList(
+                   (0): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (1): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (2): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                 )
+               )
+               (1): DecoderLayer(
+                 (self\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (src\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (feed\_forward): PositionwiseFeedForward(
+                   (w\_1): Linear(in\_features=512, out\_features=2048)
+                   (w\_2): Linear(in\_features=2048, out\_features=512)
+                   (dropout): Dropout(p=0.1)
+                 )
+                 (sublayer): ModuleList(
+                   (0): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (1): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (2): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                 )
+               )
+               (2): DecoderLayer(
+                 (self\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (src\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (feed\_forward): PositionwiseFeedForward(
+                   (w\_1): Linear(in\_features=512, out\_features=2048)
+                   (w\_2): Linear(in\_features=2048, out\_features=512)
+                   (dropout): Dropout(p=0.1)
+                 )
+                 (sublayer): ModuleList(
+                   (0): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (1): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (2): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                 )
+               )
+               (3): DecoderLayer(
+                 (self\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (src\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (feed\_forward): PositionwiseFeedForward(
+                   (w\_1): Linear(in\_features=512, out\_features=2048)
+                   (w\_2): Linear(in\_features=2048, out\_features=512)
+                   (dropout): Dropout(p=0.1)
+                 )
+                 (sublayer): ModuleList(
+                   (0): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (1): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (2): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                 )
+               )
+               (4): DecoderLayer(
+                 (self\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (src\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (feed\_forward): PositionwiseFeedForward(
+                   (w\_1): Linear(in\_features=512, out\_features=2048)
+                   (w\_2): Linear(in\_features=2048, out\_features=512)
+                   (dropout): Dropout(p=0.1)
+                 )
+                 (sublayer): ModuleList(
+                   (0): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (1): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (2): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                 )
+               )
+               (5): DecoderLayer(
+                 (self\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (src\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (feed\_forward): PositionwiseFeedForward(
+                   (w\_1): Linear(in\_features=512, out\_features=2048)
+                   (w\_2): Linear(in\_features=2048, out\_features=512)
+                   (dropout): Dropout(p=0.1)
+                 )
+                 (sublayer): ModuleList(
+                   (0): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (1): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (2): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                 )
+               )
+             )
+             (norm): LayerNorm(
+             )
+           )
+           (src\_embed): Sequential(
+             (0): Embeddings(
+               (lut): Embedding(80887, 512)
+             )
+             (1): PositionalEncoding(
+               (dropout): Dropout(p=0.1)
+             )
+           )
+           (tgt\_embed): Sequential(
+             (0): Embeddings(
+               (lut): Embedding(61332, 512)
+             )
+             (1): PositionalEncoding(
+               (dropout): Dropout(p=0.1)
+             )
+           )
+           (generator): Generator(
+             (proj): Linear(in\_features=512, out\_features=61332)
+           )
+         )
+\end{Verbatim}
+            
+    \hypertarget{decrease-training-ephochs-from-15-to-3}{%
+\subsubsection{Decrease Training Ephochs from 15 to
+3}\label{decrease-training-ephochs-from-15-to-3}}
+
+Add try-exception to catch a weird error
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{criterion} \PY{o}{=} \PY{n}{LabelSmoothing}\PY{p}{(}\PY{n}{size}\PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{TGT}\PY{o}{.}\PY{n}{vocab}\PY{p}{)}\PY{p}{,} \PY{n}{padding\PYZus{}idx}\PY{o}{=}\PY{n}{pad\PYZus{}idx}\PY{p}{,} \PY{n}{smoothing}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{)}
+         \PY{n}{criterion}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{epoch} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{k}{try}\PY{p}{:} 
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Epoch}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n}{train\PYZus{}epoch}\PY{p}{(}\PY{p}{(}\PY{n}{rebatch}\PY{p}{(}\PY{n}{pad\PYZus{}idx}\PY{p}{,} \PY{n}{b}\PY{p}{)} \PY{k}{for} \PY{n}{b} \PY{o+ow}{in} \PY{n}{train\PYZus{}iter}\PY{p}{)}\PY{p}{,} \PY{n}{model}\PY{p}{,} \PY{n}{criterion}\PY{p}{,} \PY{n}{model\PYZus{}opt}\PY{p}{)}
+                 \PY{n}{valid\PYZus{}epoch}\PY{p}{(}\PY{p}{(}\PY{n}{rebatch}\PY{p}{(}\PY{n}{pad\PYZus{}idx}\PY{p}{,} \PY{n}{b}\PY{p}{)} \PY{k}{for} \PY{n}{b} \PY{o+ow}{in} \PY{n}{valid\PYZus{}iter}\PY{p}{)}\PY{p}{,} \PY{n}{model}\PY{p}{,} \PY{n}{criterion}\PY{p}{)}
+             \PY{k}{except}\PY{p}{:}
+               \PY{k}{pass}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 1
+1 9.5057203322649 6.987712429686844e-07
+101 8.570706175640225 3.56373333914029e-05
+201 6.254039419582114 7.057589553983712e-05
+301 5.2729468531906605 0.00010551445768827134
+401 5.129672376438975 0.00014045301983670557
+501 4.92047338525299 0.00017539158198513977
+601 4.924300765937005 0.000210330144133574
+701 4.673353085687268 0.00024526870628200823
+801 4.531137476937147 0.0002802072684304424
+901 4.096565066371113 0.00031514583057887664
+1001 4.7376276087306906 0.0003500843927273108
+1101 4.324538130167639 0.0003850229548757451
+1201 4.460166577875498 0.0004199615170241793
+Epoch 2
+1 3.575336290989071 0.00045000868047183275
+101 3.8148429293705703 0.0004849472426202669
+201 3.0997549731473555 0.0005198858047687012
+301 3.459280114271678 0.0005548243669171353
+401 3.1222199423937127 0.0005897629290655697
+501 2.027361011132598 0.0006247014912140038
+601 3.4021986243897118 0.000659640053362438
+701 3.382086129813615 0.0006945786155108723
+801 2.8558721793815494 0.0007295171776593065
+901 1.9760180700104684 0.0007644557398077406
+1001 2.8116448991931975 0.0007993943019561749
+1101 2.93264847015962 0.0008343328641046092
+1201 2.600943200290203 0.0008692714262530434
+Epoch 3
+1 2.369865447515622 0.0008993185897006968
+101 2.7314598727971315 0.000934257151849131
+201 3.083419617357322 0.0009691957139975652
+301 3.1969843885199225 0.0010041342761459994
+401 2.8751970774683286 0.0010390728382944337
+501 3.146250692079775 0.0010740114004428678
+601 2.1823863009922206 0.0011089499625913022
+701 3.1004854565908317 0.0011438885247397363
+801 2.2638258757069707 0.0011788270868881706
+901 2.3022195973899215 0.0012137656490366047
+1001 2.584806520433631 0.001248704211185039
+1101 2.159151937114075 0.0012836427733334732
+1201 1.67245446681045 0.0013185813354819073
+
+    \end{Verbatim}
+
+    \hypertarget{comment}{%
+\subsubsection{Comment}\label{comment}}
+
+In 3 epochs, the loss continues to decrease and the optimized learning
+rate gradually increases from e-07 to e-03
+
+    \hypertarget{updated-code-translate-from-english-to-french}{%
+\subsection{Updated Code: Translate from English to
+French}\label{updated-code-translate-from-english-to-french}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{n}{BOS\PYZus{}WORD} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZlt{}s\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{EOS\PYZus{}WORD} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZlt{}/s\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{BLANK\PYZus{}WORD} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZlt{}blank\PYZgt{}}\PY{l+s+s2}{\PYZdq{}}
+        
+        \PY{n}{TGT\PYZus{}fr} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{Field}\PY{p}{(}\PY{n}{tokenize}\PY{o}{=}\PY{n}{tokenize\PYZus{}fr}\PY{p}{,} \PY{n}{pad\PYZus{}token}\PY{o}{=}\PY{n}{BLANK\PYZus{}WORD}\PY{p}{)}
+        \PY{n}{SRC\PYZus{}en} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{Field}\PY{p}{(}\PY{n}{tokenize}\PY{o}{=}\PY{n}{tokenize\PYZus{}en}\PY{p}{,} \PY{n}{init\PYZus{}token} \PY{o}{=} \PY{n}{BOS\PYZus{}WORD}\PY{p}{,} 
+                            \PY{n}{eos\PYZus{}token} \PY{o}{=} \PY{n}{EOS\PYZus{}WORD}\PY{p}{,} \PY{n}{pad\PYZus{}token}\PY{o}{=}\PY{n}{BLANK\PYZus{}WORD}\PY{p}{)}
+        
+        \PY{n}{MAX\PYZus{}LEN} \PY{o}{=} \PY{l+m+mi}{100}
+        \PY{n}{train\PYZus{}en\PYZus{}fr}\PY{p}{,} \PY{n}{val\PYZus{}en\PYZus{}fr}\PY{p}{,} \PY{n}{test\PYZus{}en\PYZus{}fr} \PY{o}{=} \PY{n}{datasets}\PY{o}{.}\PY{n}{IWSLT}\PY{o}{.}\PY{n}{splits}\PY{p}{(}
+                                                 \PY{n}{exts}\PY{o}{=}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.en}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.fr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+                                                 \PY{n}{fields}\PY{o}{=}\PY{p}{(}\PY{n}{SRC\PYZus{}en}\PY{p}{,} \PY{n}{TGT\PYZus{}fr}\PY{p}{)}\PY{p}{,} 
+                                                 \PY{n}{filter\PYZus{}pred}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{vars}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{src}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{MAX\PYZus{}LEN} \PY{o+ow}{and} 
+                                                 \PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{vars}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{MAX\PYZus{}LEN}\PY{p}{)}
+        \PY{n}{MIN\PYZus{}FREQ} \PY{o}{=} \PY{l+m+mi}{1}
+        \PY{n}{SRC\PYZus{}en}\PY{o}{.}\PY{n}{build\PYZus{}vocab}\PY{p}{(}\PY{n}{train\PYZus{}en\PYZus{}fr}\PY{o}{.}\PY{n}{src}\PY{p}{,} \PY{n}{min\PYZus{}freq}\PY{o}{=}\PY{n}{MIN\PYZus{}FREQ}\PY{p}{)}
+        \PY{n}{TGT\PYZus{}fr}\PY{o}{.}\PY{n}{build\PYZus{}vocab}\PY{p}{(}\PY{n}{train\PYZus{}en\PYZus{}fr}\PY{o}{.}\PY{n}{trg}\PY{p}{,} \PY{n}{min\PYZus{}freq}\PY{o}{=}\PY{n}{MIN\PYZus{}FREQ}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{c+c1}{\PYZsh{} Detail. Batching seems to matter quite a bit. }
+        \PY{c+c1}{\PYZsh{} This is temporary code for dynamic batching based on number of tokens.}
+        \PY{c+c1}{\PYZsh{} This code should all go away once things get merged in this library.}
+        
+        \PY{n}{BATCH\PYZus{}SIZE} \PY{o}{=} \PY{l+m+mi}{4096}
+        \PY{k}{global} \PY{n}{max\PYZus{}src\PYZus{}in\PYZus{}batch}\PY{p}{,} \PY{n}{max\PYZus{}tgt\PYZus{}in\PYZus{}batch}
+        
+        \PY{n}{train\PYZus{}iter\PYZus{}en\PYZus{}fr} \PY{o}{=} \PY{n}{MyIterator}\PY{p}{(}\PY{n}{train\PYZus{}en\PYZus{}fr}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{n}{BATCH\PYZus{}SIZE}\PY{p}{,} \PY{n}{device}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}
+                                \PY{n}{repeat}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{sort\PYZus{}key}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{src}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{trg}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                                \PY{n}{batch\PYZus{}size\PYZus{}fn}\PY{o}{=}\PY{n}{batch\PYZus{}size\PYZus{}fn}\PY{p}{,} \PY{n}{train}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{valid\PYZus{}iter\PYZus{}en\PYZus{}fr} \PY{o}{=} \PY{n}{MyIterator}\PY{p}{(}\PY{n}{val\PYZus{}en\PYZus{}fr}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{n}{BATCH\PYZus{}SIZE}\PY{p}{,} \PY{n}{device}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}
+                                \PY{n}{repeat}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{sort\PYZus{}key}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{src}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{trg}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                                \PY{n}{batch\PYZus{}size\PYZus{}fn}\PY{o}{=}\PY{n}{batch\PYZus{}size\PYZus{}fn}\PY{p}{,} \PY{n}{train}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{show-model-summary}{%
+\subsubsection{Show Model Summary}\label{show-model-summary}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{c+c1}{\PYZsh{} Create the model and load it onto our GPU.}
+         \PY{n}{pad\PYZus{}idx} \PY{o}{=} \PY{n}{TGT\PYZus{}fr}\PY{o}{.}\PY{n}{vocab}\PY{o}{.}\PY{n}{stoi}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZlt{}blank\PYZgt{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{model\PYZus{}en\PYZus{}fr} \PY{o}{=} \PY{n}{make\PYZus{}model}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{SRC\PYZus{}en}\PY{o}{.}\PY{n}{vocab}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{TGT\PYZus{}fr}\PY{o}{.}\PY{n}{vocab}\PY{p}{)}\PY{p}{,} \PY{n}{N}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{)}
+         \PY{n}{model\PYZus{}en\PYZus{}fr\PYZus{}opt} \PY{o}{=} \PY{n}{get\PYZus{}std\PYZus{}opt}\PY{p}{(}\PY{n}{model\PYZus{}en\PYZus{}fr}\PY{p}{)}
+         \PY{n}{model\PYZus{}en\PYZus{}fr}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}76}]:} EncoderDecoder(
+           (encoder): Encoder(
+             (layers): ModuleList(
+               (0): EncoderLayer(
+                 (self\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (feed\_forward): PositionwiseFeedForward(
+                   (w\_1): Linear(in\_features=512, out\_features=2048)
+                   (w\_2): Linear(in\_features=2048, out\_features=512)
+                   (dropout): Dropout(p=0.1)
+                 )
+                 (sublayer): ModuleList(
+                   (0): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (1): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                 )
+               )
+               (1): EncoderLayer(
+                 (self\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (feed\_forward): PositionwiseFeedForward(
+                   (w\_1): Linear(in\_features=512, out\_features=2048)
+                   (w\_2): Linear(in\_features=2048, out\_features=512)
+                   (dropout): Dropout(p=0.1)
+                 )
+                 (sublayer): ModuleList(
+                   (0): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (1): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                 )
+               )
+               (2): EncoderLayer(
+                 (self\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (feed\_forward): PositionwiseFeedForward(
+                   (w\_1): Linear(in\_features=512, out\_features=2048)
+                   (w\_2): Linear(in\_features=2048, out\_features=512)
+                   (dropout): Dropout(p=0.1)
+                 )
+                 (sublayer): ModuleList(
+                   (0): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (1): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                 )
+               )
+               (3): EncoderLayer(
+                 (self\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (feed\_forward): PositionwiseFeedForward(
+                   (w\_1): Linear(in\_features=512, out\_features=2048)
+                   (w\_2): Linear(in\_features=2048, out\_features=512)
+                   (dropout): Dropout(p=0.1)
+                 )
+                 (sublayer): ModuleList(
+                   (0): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (1): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                 )
+               )
+               (4): EncoderLayer(
+                 (self\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (feed\_forward): PositionwiseFeedForward(
+                   (w\_1): Linear(in\_features=512, out\_features=2048)
+                   (w\_2): Linear(in\_features=2048, out\_features=512)
+                   (dropout): Dropout(p=0.1)
+                 )
+                 (sublayer): ModuleList(
+                   (0): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (1): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                 )
+               )
+               (5): EncoderLayer(
+                 (self\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (feed\_forward): PositionwiseFeedForward(
+                   (w\_1): Linear(in\_features=512, out\_features=2048)
+                   (w\_2): Linear(in\_features=2048, out\_features=512)
+                   (dropout): Dropout(p=0.1)
+                 )
+                 (sublayer): ModuleList(
+                   (0): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (1): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                 )
+               )
+             )
+             (norm): LayerNorm(
+             )
+           )
+           (decoder): Decoder(
+             (layers): ModuleList(
+               (0): DecoderLayer(
+                 (self\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (src\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (feed\_forward): PositionwiseFeedForward(
+                   (w\_1): Linear(in\_features=512, out\_features=2048)
+                   (w\_2): Linear(in\_features=2048, out\_features=512)
+                   (dropout): Dropout(p=0.1)
+                 )
+                 (sublayer): ModuleList(
+                   (0): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (1): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (2): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                 )
+               )
+               (1): DecoderLayer(
+                 (self\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (src\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (feed\_forward): PositionwiseFeedForward(
+                   (w\_1): Linear(in\_features=512, out\_features=2048)
+                   (w\_2): Linear(in\_features=2048, out\_features=512)
+                   (dropout): Dropout(p=0.1)
+                 )
+                 (sublayer): ModuleList(
+                   (0): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (1): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (2): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                 )
+               )
+               (2): DecoderLayer(
+                 (self\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (src\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (feed\_forward): PositionwiseFeedForward(
+                   (w\_1): Linear(in\_features=512, out\_features=2048)
+                   (w\_2): Linear(in\_features=2048, out\_features=512)
+                   (dropout): Dropout(p=0.1)
+                 )
+                 (sublayer): ModuleList(
+                   (0): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (1): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (2): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                 )
+               )
+               (3): DecoderLayer(
+                 (self\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (src\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (feed\_forward): PositionwiseFeedForward(
+                   (w\_1): Linear(in\_features=512, out\_features=2048)
+                   (w\_2): Linear(in\_features=2048, out\_features=512)
+                   (dropout): Dropout(p=0.1)
+                 )
+                 (sublayer): ModuleList(
+                   (0): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (1): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (2): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                 )
+               )
+               (4): DecoderLayer(
+                 (self\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (src\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (feed\_forward): PositionwiseFeedForward(
+                   (w\_1): Linear(in\_features=512, out\_features=2048)
+                   (w\_2): Linear(in\_features=2048, out\_features=512)
+                   (dropout): Dropout(p=0.1)
+                 )
+                 (sublayer): ModuleList(
+                   (0): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (1): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (2): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                 )
+               )
+               (5): DecoderLayer(
+                 (self\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (src\_attn): MultiHeadedAttention(
+                   (linears): ModuleList(
+                     (0): Linear(in\_features=512, out\_features=512)
+                     (1): Linear(in\_features=512, out\_features=512)
+                     (2): Linear(in\_features=512, out\_features=512)
+                     (3): Linear(in\_features=512, out\_features=512)
+                   )
+                 )
+                 (feed\_forward): PositionwiseFeedForward(
+                   (w\_1): Linear(in\_features=512, out\_features=2048)
+                   (w\_2): Linear(in\_features=2048, out\_features=512)
+                   (dropout): Dropout(p=0.1)
+                 )
+                 (sublayer): ModuleList(
+                   (0): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (1): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                   (2): SublayerConnection(
+                     (norm): LayerNorm(
+                     )
+                     (dropout): Dropout(p=0.1)
+                   )
+                 )
+               )
+             )
+             (norm): LayerNorm(
+             )
+           )
+           (src\_embed): Sequential(
+             (0): Embeddings(
+               (lut): Embedding(61332, 512)
+             )
+             (1): PositionalEncoding(
+               (dropout): Dropout(p=0.1)
+             )
+           )
+           (tgt\_embed): Sequential(
+             (0): Embeddings(
+               (lut): Embedding(80887, 512)
+             )
+             (1): PositionalEncoding(
+               (dropout): Dropout(p=0.1)
+             )
+           )
+           (generator): Generator(
+             (proj): Linear(in\_features=512, out\_features=80887)
+           )
+         )
+\end{Verbatim}
+            
+    \hypertarget{decrease-training-epochs-from-15-to-3}{%
+\subsubsection{Decrease Training Epochs from 15 to
+3}\label{decrease-training-epochs-from-15-to-3}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{n}{criterion} \PY{o}{=} \PY{n}{LabelSmoothing}\PY{p}{(}\PY{n}{size}\PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{TGT\PYZus{}fr}\PY{o}{.}\PY{n}{vocab}\PY{p}{)}\PY{p}{,} \PY{n}{padding\PYZus{}idx}\PY{o}{=}\PY{n}{pad\PYZus{}idx}\PY{p}{,} 
+                                    \PY{n}{smoothing}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{)}
+         \PY{n}{criterion}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{epoch} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{k}{try}\PY{p}{:} 
+               \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Epoch}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+               \PY{n}{train\PYZus{}epoch}\PY{p}{(}\PY{p}{(}\PY{n}{rebatch}\PY{p}{(}\PY{n}{pad\PYZus{}idx}\PY{p}{,} \PY{n}{b}\PY{p}{)} \PY{k}{for} \PY{n}{b} \PY{o+ow}{in} \PY{n}{train\PYZus{}iter\PYZus{}en\PYZus{}fr}\PY{p}{)}\PY{p}{,} \PY{n}{model\PYZus{}en\PYZus{}fr}\PY{p}{,} 
+                            \PY{n}{criterion}\PY{p}{,} \PY{n}{model\PYZus{}en\PYZus{}fr\PYZus{}opt}\PY{p}{)}
+               \PY{n}{valid\PYZus{}epoch}\PY{p}{(}\PY{p}{(}\PY{n}{rebatch}\PY{p}{(}\PY{n}{pad\PYZus{}idx}\PY{p}{,} \PY{n}{b}\PY{p}{)} \PY{k}{for} \PY{n}{b} \PY{o+ow}{in} \PY{n}{valid\PYZus{}iter\PYZus{}en\PYZus{}fr}\PY{p}{)}\PY{p}{,} \PY{n}{model\PYZus{}en\PYZus{}fr}\PY{p}{,} 
+                           \PY{n}{criterion}\PY{p}{)}
+             \PY{k}{except}\PY{p}{:}
+               \PY{k}{pass}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 1
+1 9.582306333817542 0.0012272608807124769
+101 9.056958317756653 0.001215599072308045
+201 9.401675701141357 0.0012042635107418354
+301 9.271668612957 0.0011932392626943502
+401 9.761919856071472 0.0011825123346139903
+501 9.571456134319305 0.0011720695980213562
+601 9.613771468400955 0.0011618987219440843
+701 9.401271879673004 0.0011519881116914845
+801 8.88751471042633 0.0011423268532777264
+901 9.425382643938065 0.0011329046628878506
+1001 9.746580334380269 0.0011237118408546165
+1101 6.501348273828626 0.0011147392296779178
+1201 9.409618027508259 0.0011059781756737072
+1301 9.266793191432953 0.001097420493887318
+Epoch 2
+1 9.789507873356342 0.0010951437729029992
+101 9.500893145799637 0.001086833258416229
+201 9.71332137286663 0.0010787091105802038
+301 9.195584744215012 0.0010707644663569482
+401 8.95315170288086 0.0010629928114036086
+501 9.179655969142914 0.0010553879576199693
+601 8.646165706217289 0.0010479440224380409
+701 8.980727016925812 0.0010406554096962018
+801 9.842741597443819 0.0010335167919565801
+901 9.804889554157853 0.0010265230941387087
+1001 8.887644708156586 0.0010196694783552007
+1101 9.341143131256104 0.00101295132984649
+1201 9.56239416450262 0.0010063642439217162
+1301 9.180822134017944 0.0009999040138217886
+Epoch 3
+1 9.577180318534374 0.000998180975341257
+101 9.445659399032593 0.000991876080426406
+201 9.746940806508064 0.0009856891682603688
+301 9.791000317782164 0.0009796166044973428
+401 9.765400379896164 0.0009736549096183438
+501 9.402191638946533 0.0009678007505528456
+601 9.670841723680496 0.0009620509328479828
+701 9.809163740836084 0.000956402393343518
+801 9.330014042556286 0.0009508521933144191
+901 9.374185776337981 0.0009453975120461716
+1001 9.684827300719917 0.00094003564081092
+1101 8.978407382965088 0.0009347639772152145
+1201 9.576733201742172 0.0009295800198925725
+1301 9.710087150335312 0.000924481363516267
+
+    \end{Verbatim}
+
+    \hypertarget{comment}{%
+\subsubsection{Comment}\label{comment}}
+
+The loss at each step is significantly higher than when we train the
+model from English to French. The learning rate seems to fluctuate
+between 0.001 and 0.0009, which might be the reason for lack of any
+convergency in 3 epochs. This would lead to bad translation.
+
+    \hypertarget{translation-examples}{%
+\section{Translation Examples}\label{translation-examples}}
+
+    \hypertarget{updated-code-report-bleu-score}{%
+\subsection{Updated Code: Report BLEU
+score}\label{updated-code-report-bleu-score}}
+
+    \hypertarget{french-to-english}{%
+\subsubsection{French to English}\label{french-to-english}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{c+c1}{\PYZsh{}from torch.autograd import Variable}
+        \PY{c+c1}{\PYZsh{}from .functional import subsequent\PYZus{}mask}
+        
+        
+        \PY{k}{def} \PY{n+nf}{greedy\PYZus{}decode}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{src}\PY{p}{,} \PY{n}{src\PYZus{}mask}\PY{p}{,} \PY{n}{max\PYZus{}len}\PY{p}{,} \PY{n}{start\PYZus{}symbol}\PY{p}{)}\PY{p}{:}
+            \PY{n}{memory} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{encode}\PY{p}{(}\PY{n}{src}\PY{p}{,} \PY{n}{src\PYZus{}mask}\PY{p}{)}
+            \PY{n}{ys} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{fill\PYZus{}}\PY{p}{(}\PY{n}{start\PYZus{}symbol}\PY{p}{)}\PY{o}{.}\PY{n}{type\PYZus{}as}\PY{p}{(}\PY{n}{src}\PY{o}{.}\PY{n}{data}\PY{p}{)}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{max\PYZus{}len} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                \PY{n}{out} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{decode}\PY{p}{(}\PY{n}{memory}\PY{p}{,} \PY{n}{src\PYZus{}mask}\PY{p}{,} \PY{n}{Variable}\PY{p}{(}\PY{n}{ys}\PY{p}{)}\PY{p}{,} 
+                                   \PY{n}{Variable}\PY{p}{(}\PY{n}{subsequent\PYZus{}mask}\PY{p}{(}\PY{n}{ys}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{type\PYZus{}as}\PY{p}{(}\PY{n}{src}\PY{o}{.}\PY{n}{data}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                \PY{n}{prob} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{generator}\PY{p}{(}\PY{n}{out}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+                \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{next\PYZus{}word} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{prob}\PY{p}{,} \PY{n}{dim}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+                \PY{n}{next\PYZus{}word} \PY{o}{=} \PY{n}{next\PYZus{}word}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                \PY{n}{ys} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{cat}\PY{p}{(}\PY{p}{[}\PY{n}{ys}\PY{p}{,} \PY{n}{torch}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{type\PYZus{}as}\PY{p}{(}\PY{n}{src}\PY{o}{.}\PY{n}{data}\PY{p}{)}\PY{o}{.}\PY{n}{fill\PYZus{}}\PY{p}{(}\PY{n}{next\PYZus{}word}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{n}{dim}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{k}{return} \PY{n}{ys}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{k+kn}{import} \PY{n+nn}{nltk}
+         \PY{n}{nltk}\PY{o}{.}\PY{n}{download}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{punkt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{k+kn}{from} \PY{n+nn}{nltk}\PY{n+nn}{.}\PY{n+nn}{translate}\PY{n+nn}{.}\PY{n+nn}{bleu\PYZus{}score} \PY{k}{import} \PY{n}{corpus\PYZus{}bleu}
+         \PY{k+kn}{from} \PY{n+nn}{nltk}\PY{n+nn}{.}\PY{n+nn}{translate}\PY{n+nn}{.}\PY{n+nn}{bleu\PYZus{}score} \PY{k}{import} \PY{n}{SmoothingFunction}
+         
+         \PY{k}{def} \PY{n+nf}{report\PYZus{}bleu}\PY{p}{(}\PY{n}{ref\PYZus{}tokens}\PY{p}{,} \PY{n}{result\PYZus{}tokens}\PY{p}{)}\PY{p}{:}
+           \PY{n}{smoothie} \PY{o}{=} \PY{n}{SmoothingFunction}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{method4}
+           \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Smoothed BLEU Score: }\PY{l+s+si}{\PYZob{}:.4f\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{corpus\PYZus{}bleu}\PY{p}{(}\PY{p}{[}\PY{n}{ref\PYZus{}tokens}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{n}{result\PYZus{}tokens}\PY{p}{]}\PY{p}{,}\PY{n}{smoothing\PYZus{}function}\PY{o}{=}\PY{n}{smoothie}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[nltk\_data] Downloading package punkt to /root/nltk\_data{\ldots}
+[nltk\_data]   Package punkt is already up-to-date!
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{n}{ref\PYZus{}tokens} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{result\PYZus{}tokens} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{batch} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{valid\PYZus{}iter}\PY{p}{)}\PY{p}{:}
+             \PY{n}{src} \PY{o}{=} \PY{n}{batch}\PY{o}{.}\PY{n}{src}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n}{src\PYZus{}mask} \PY{o}{=} \PY{p}{(}\PY{n}{src} \PY{o}{!=} \PY{n}{SRC}\PY{o}{.}\PY{n}{vocab}\PY{o}{.}\PY{n}{stoi}\PY{p}{[}\PY{n}{BLANK\PYZus{}WORD}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{unsqueeze}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}
+             \PY{n}{out} \PY{o}{=} \PY{n}{greedy\PYZus{}decode}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{src}\PY{p}{,} \PY{n}{src\PYZus{}mask}\PY{p}{,} \PY{n}{max\PYZus{}len}\PY{o}{=}\PY{l+m+mi}{60}\PY{p}{,} 
+                                 \PY{n}{start\PYZus{}symbol}\PY{o}{=}\PY{n}{TGT}\PY{o}{.}\PY{n}{vocab}\PY{o}{.}\PY{n}{stoi}\PY{p}{[}\PY{n}{BOS\PYZus{}WORD}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Translation:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{out}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{sym} \PY{o}{=} \PY{n}{TGT}\PY{o}{.}\PY{n}{vocab}\PY{o}{.}\PY{n}{itos}\PY{p}{[}\PY{n}{out}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{i}\PY{p}{]}\PY{p}{]}
+                 \PY{n}{result\PYZus{}tokens}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{sym}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{sym} \PY{o}{==} \PY{n}{EOS\PYZus{}WORD}\PY{p}{:}
+                     \PY{k}{break}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{sym}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Target:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{batch}\PY{o}{.}\PY{n}{trg}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{sym} \PY{o}{=} \PY{n}{TGT}\PY{o}{.}\PY{n}{vocab}\PY{o}{.}\PY{n}{itos}\PY{p}{[}\PY{n}{batch}\PY{o}{.}\PY{n}{trg}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}
+                 \PY{n}{ref\PYZus{}tokens}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{sym}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{sym} \PY{o}{==} \PY{n}{EOS\PYZus{}WORD}\PY{p}{:}
+                     \PY{k}{break}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{sym}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+             \PY{n}{report\PYZus{}bleu}\PY{p}{(}\PY{n}{ref\PYZus{}tokens}\PY{p}{,}\PY{n}{result\PYZus{}tokens}\PY{p}{)}
+             \PY{k}{break}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Translation:	Who does who puts a email email email a email ? 
+Target:	<s> Who calls whom ? Who sends whom an email ? 
+Smoothed BLEU Score: 0.2290
+
+    \end{Verbatim}
+
+    \hypertarget{english-to-french}{%
+\subsubsection{English to French}\label{english-to-french}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{n}{ref\PYZus{}tokens} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{result\PYZus{}tokens} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{batch} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{valid\PYZus{}iter\PYZus{}en\PYZus{}fr}\PY{p}{)}\PY{p}{:}
+             \PY{n}{src} \PY{o}{=} \PY{n}{batch}\PY{o}{.}\PY{n}{src}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n}{src\PYZus{}mask} \PY{o}{=} \PY{p}{(}\PY{n}{src} \PY{o}{!=} \PY{n}{SRC\PYZus{}en}\PY{o}{.}\PY{n}{vocab}\PY{o}{.}\PY{n}{stoi}\PY{p}{[}\PY{n}{BLANK\PYZus{}WORD}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{unsqueeze}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}
+             \PY{n}{out} \PY{o}{=} \PY{n}{greedy\PYZus{}decode}\PY{p}{(}\PY{n}{model\PYZus{}en\PYZus{}fr}\PY{p}{,} \PY{n}{src}\PY{p}{,} \PY{n}{src\PYZus{}mask}\PY{p}{,} \PY{n}{max\PYZus{}len}\PY{o}{=}\PY{l+m+mi}{60}\PY{p}{,} 
+                                 \PY{n}{start\PYZus{}symbol}\PY{o}{=}\PY{n}{TGT\PYZus{}fr}\PY{o}{.}\PY{n}{vocab}\PY{o}{.}\PY{n}{stoi}\PY{p}{[}\PY{n}{BOS\PYZus{}WORD}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Translation:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{out}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{sym} \PY{o}{=} \PY{n}{TGT\PYZus{}fr}\PY{o}{.}\PY{n}{vocab}\PY{o}{.}\PY{n}{itos}\PY{p}{[}\PY{n}{out}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{i}\PY{p}{]}\PY{p}{]}
+                 \PY{n}{result\PYZus{}tokens}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{sym}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{sym} \PY{o}{==} \PY{n}{EOS\PYZus{}WORD}\PY{p}{:}
+                     \PY{k}{break}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{sym}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Target:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{batch}\PY{o}{.}\PY{n}{trg}\PY{o}{.}\PY{n}{size}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{sym} \PY{o}{=} \PY{n}{TGT\PYZus{}fr}\PY{o}{.}\PY{n}{vocab}\PY{o}{.}\PY{n}{itos}\PY{p}{[}\PY{n}{batch}\PY{o}{.}\PY{n}{trg}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}
+                 \PY{n}{ref\PYZus{}tokens}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{sym}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{sym} \PY{o}{==} \PY{n}{EOS\PYZus{}WORD}\PY{p}{:}
+                     \PY{k}{break}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{sym}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+             \PY{n}{report\PYZus{}bleu}\PY{p}{(}\PY{n}{ref\PYZus{}tokens}\PY{p}{,}\PY{n}{result\PYZus{}tokens}\PY{p}{)}
+             \PY{k}{break}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Translation:	Etes maison-mère composaient avion-fusée internaliser traitements lontemps Phoques sclérosent bardeaux provocante hydrothermaux Théière Reilly Lauralee extra-terrestres thaïs direz vulgaire direz hydrothermaux direz Astronomie expédiées immunologistes Day bardeaux direz Enlevés Phoques Théière grimaces direz grimaces aryens lontemps hydrothermaux avion-fusée direz hydrothermaux bardeaux direz direz Théière direz aryens avion-fusée Day Théière direz direz Théière direz poisson\&lt;br Day avion-fusée direz direz équivalence 
+Target:	Au final , notre initiative a été adoptée et fut une réussite . <blank> <blank> <blank> <blank> <blank> 
+Smoothed BLEU Score: 0.0000
+
+    \end{Verbatim}
+
+    \hypertarget{comment}{%
+\subsubsection{Comment}\label{comment}}
+
+    While the translation from French to English is decent, the translation
+from English to French with the same data source, is unacceptable. We
+can tell this directly from the BLEU score.
+
+    \hypertarget{summary}{%
+\section{Summary}\label{summary}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Keeping packages in use compatible with each other requires essential
+  consideration when writing code. Package versions must be detaily
+  documented.
+\item
+  While the idea to test the quality of the translation by training two
+  modesl to translate back and forth is interesting, to fully explore
+  the potential effects would require a good grasp of appropriate data.
+\item
+  Learning rate must be wisely chosen (such as in the case of
+  translating from French to English) and the best learning rate may not
+  be universal (such as in the case of translating from English to
+  French). A different optimization algorithm might be necessary to
+  further improve the Englisht-to-French language model.
+\item
+  BLEU score is still a good indicator for translation quality.
+\end{enumerate}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

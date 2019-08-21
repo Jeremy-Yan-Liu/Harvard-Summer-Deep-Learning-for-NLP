@@ -1,0 +1,32 @@
+    For those who are using Mac, you may run into a HTTP Error 403 when trying to download the zip file, if you are using the tf.keras.utils.get_file function provided in the Notebook. 
+
+    Here you have a workaround based on specifying the User-Agent header when retrieving the URL:
+
+import urllib.request
+import zipfile
+
+def get_dataset(file_name):
+    zip_file = file_name + '.zip'
+    txt_file = file_name + '.txt'
+
+    hdr = ('User-Agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14)')
+
+    file_url = 'http://www.manythings.org/anki/{}'.format(zip_file)
+    local_path = './{}'.format(zip_file)
+
+    opener = urllib.request.build_opener()
+    opener.addheaders = [hdr]
+
+    urllib.request.install_opener(opener)
+    _ = urllib.request.urlretrieve(file_url, local_path)
+
+
+    zf = zipfile.ZipFile(local_path)
+    zf.extractall()
+    
+file_name = 'ita-eng'
+get_dataset(file_name)
+    Hope it helps,
+
+            Jose M Pena.
+
